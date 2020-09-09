@@ -8,5 +8,6 @@
 
 cd Codigos/
 module load python3.6/3.6.6
+module load igraph
 
 python3.6 correr_simulaciones.py

@@ -1,6 +1,6 @@
 #Library for network implementation
 import igraph as ig
-import cairocffi as cairo
+#import cairocffi as cairo
 
 def create_graph(N, type, k, printg, imagen=True, identificador=''):
 
