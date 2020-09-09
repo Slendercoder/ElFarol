@@ -2,7 +2,7 @@
 import igraph as ig
 import cairocffi as cairo
 
-def create_graph(N, type, k, printg, imagen=True):
+def create_graph(N, type, k, printg, imagen=True, identificador=''):
 
     if type == "Full":
         g = ig.Graph.Full(N)
@@ -25,7 +25,7 @@ def create_graph(N, type, k, printg, imagen=True):
     else:
         print("unvalid input")
 
-    ff = open('data/connlist.dat', 'w')
+    ff = open('data/connlist' + identificador + '.dat', 'w')
     for e in g.es:
         edge = e.tuple
         ff.write(str(edge[0])+" "+str(edge[1])+"\n")

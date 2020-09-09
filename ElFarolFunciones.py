@@ -34,11 +34,11 @@ def juega_ronda(Agentes, politicas, UMBRAL):
 
     return Agentes
 
-def leer_red(Agentes):
+def leer_red(Agentes, identificador=''):
 
     net = {}
 
-    In = open("data/connlist.dat", "r")
+    In = open("data/connlist' + identificador + '.dat", "r")
     for line in In:
         v = list(map(int, line.split()))
 

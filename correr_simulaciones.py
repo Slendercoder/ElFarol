@@ -45,11 +45,11 @@ def crea_dataframe_agentes(Num_agentes, tipoRed, Agentes, Num_iteraciones, PARAM
         data[nombre] = lista_parametros[p]
     return data
 
-def simulacion(Num_agentes, tipoRed, Num_iteraciones, UMBRAL, inicial, N, PARS):
+def simulacion(Num_agentes, tipoRed, Num_iteraciones, UMBRAL, inicial, identificador, PARS):
     agentes = F.crear_agentes_aleatorios(Num_agentes)
     politicas = F.crear_politicas()
     # Leyendo red de archivo
-    F.leer_red(agentes)
+    F.leer_red(agentes, identificador)
     for i in range(Num_iteraciones):
         agentes = F.juega_ronda(agentes, politicas, UMBRAL)
         agentes = F.agentes_aprenden(agentes, i)
@@ -70,7 +70,7 @@ for Num_agentes in [10, 11, 100, 101]:
     for p in [0.1 * x for x in range(1, 11)]:
         for i in range(Num_experimentos):
             PARS = [Num_agentes, p]
-            redes1.create_graph(PARS[0], tipoRed, PARS[1], True, imagen=False)
+            redes1.create_graph(PARS[0], tipoRed, PARS[1], True, imagen=False, identificador)
             simulacion(Num_agentes, tipoRed, Num_iteraciones, UMBRAL, inicial, identificador, PARS)
             identificador += 1
             inicial = False
