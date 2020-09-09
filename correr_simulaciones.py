@@ -2,7 +2,7 @@ import pandas as pd
 import ElFarolFunciones as F
 import redes1
 
-def crea_dataframe_agentes(Num_agentes, tipoRed, Agentes, Num_iteraciones, PARAMETROS, N,corte=10):
+def crea_dataframe_agentes(Num_agentes, tipoRed, Agentes, Num_iteraciones, PARAMETROS, N, corte=10):
     muestra = []
     num_agentes = []
     red = []
@@ -54,39 +54,57 @@ def simulacion(Num_agentes, tipoRed, Num_iteraciones, UMBRAL, inicial, N, PARS):
         agentes = F.juega_ronda(agentes, politicas, UMBRAL)
         agentes = F.agentes_aprenden(agentes, i)
     data = crea_dataframe_agentes(Num_agentes, tipoRed, agentes, Num_iteraciones, PARS, N)
-    data['Politica_lag'] = data.groupby('Agente')['Politica'].transform('shift', 1)
-    data['Consistencia'] = data.apply(lambda x : F.encontrar_consistencia (x['Politica'], x['Politica_lag']), axis=1)
-    F.guardar(data, 'simulaciones'+tipoRed+str(PARS[1])+'.csv', inicial)
+    # data['Politica_lag'] = data.groupby('Agente')['Politica'].transform('shift', 1)
+    # data['Consistencia'] = data.apply(lambda x : F.encontrar_consistencia (x['Politica'], x['Politica_lag']), axis=1)
+    F.guardar(data, './data/simulaciones-' + tipoRed + '-' + str(PARS[0]) + '-' + str(PARS[1]) + '.csv', inicial)
 
+Num_experimentos = 100
 Num_iteraciones = 100
 identificador = 0
 UMBRAL = 0.5
 inicial = True
 
-print('Corriendo simulacion red completa...')
-tipoRed = 'Full'
-for Num_agentes in [5,6,10,11,101,1000]:
-    for i in range(100):
-        PARS = [Num_agentes, 1]
-        redes1.create_graph(Num_agentes, tipoRed, 1, True)
-        simulacion(Num_agentes,tipoRed,Num_iteraciones,UMBRAL,inicial,identificador,PARS)
-        identificador += 1
-        inicial = False
+print('Corriendo simulaciones...')
+tipoRed = 'GRG'
+for Num_agentes in [10, 11, 100, 101]:
+    for p in [0.1 * x for x in range(1, 11)]:
+        for i in range(Num_experimentos):
+            PARS = [Num_agentes, p]
+            redes1.create_graph(PARS[0], tipoRed, PARS[1], True, imagen=False)
+            simulacion(Num_agentes, tipoRed, Num_iteraciones, UMBRAL, inicial, identificador, PARS)
+            identificador += 1
+            inicial = False
 
-print('Corriendo simulacion red 2-regular...')
-tipoRed = 'Kregular'
-for Num_agentes in [5,6,10,11,101,1000]:
-    for i in range(100):
-        PARS = [Num_agentes, 2]
-        redes1.create_graph(Num_agentes, tipoRed, 2, True)
-        simulacion(Num_agentes,tipoRed,Num_iteraciones,UMBRAL,inicial,identificador,PARS)
-        identificador += 1
+##################################################################
+##################################################################
+##################################################################
+##################################################################
+##################################################################
 
-print('Corriendo simulacion red 4-regular...')
-tipoRed = 'Kregular'
-for Num_agentes in [5,6,10,11,101,1000]:
-    for i in range(100):
-        PARS = [Num_agentes, 4]
-        redes1.create_graph(Num_agentes, tipoRed, 4, True)
-        simulacion(Num_agentes,tipoRed,Num_iteraciones,UMBRAL,inicial,identificador,PARS)
-        identificador += 1
+# print('Corriendo simulacion red completa...')
+# tipoRed = 'Full'
+# for Num_agentes in [5,6,10,11,101,1000]:
+#     for i in range(100):
+#         PARS = [Num_agentes, 1]
+#         redes1.create_graph(Num_agentes, tipoRed, 1, True)
+#         simulacion(Num_agentes,tipoRed,Num_iteraciones,UMBRAL,inicial,identificador,PARS)
+#         identificador += 1
+#         inicial = False
+#
+# print('Corriendo simulacion red 2-regular...')
+# tipoRed = 'Kregular'
+# for Num_agentes in [5,6,10,11,101,1000]:
+#     for i in range(100):
+#         PARS = [Num_agentes, 2]
+#         redes1.create_graph(Num_agentes, tipoRed, 2, True)
+#         simulacion(Num_agentes,tipoRed,Num_iteraciones,UMBRAL,inicial,identificador,PARS)
+#         identificador += 1
+#
+# print('Corriendo simulacion red 4-regular...')
+# tipoRed = 'Kregular'
+# for Num_agentes in [5,6,10,11,101,1000]:
+#     for i in range(100):
+#         PARS = [Num_agentes, 4]
+#         redes1.create_graph(Num_agentes, tipoRed, 4, True)
+#         simulacion(Num_agentes,tipoRed,Num_iteraciones,UMBRAL,inicial,identificador,PARS)
+#         identificador += 1

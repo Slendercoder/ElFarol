@@ -38,7 +38,7 @@ def leer_red(Agentes):
 
     net = {}
 
-    In = open("connlist.dat", "r")
+    In = open("data/connlist.dat", "r")
     for line in In:
         v = list(map(int, line.split()))
 
@@ -121,6 +121,7 @@ def crea_dataframe_agentes(Agentes, Num_iteraciones, PARAMETROS, N):
     return data
 
 def guardar(dataFrame, archivo, inicial):
+    archivo = "data/" + archivo
     if inicial:
         #os.remove(archivo)
         dataFrame.to_csv(archivo, index = False)
