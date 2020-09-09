@@ -49,14 +49,14 @@ def simulacion(Num_agentes, tipoRed, Num_iteraciones, UMBRAL, inicial, identific
     agentes = F.crear_agentes_aleatorios(Num_agentes)
     politicas = F.crear_politicas()
     # Leyendo red de archivo
-    F.leer_red(agentes, identificador)
+    F.leer_red(agentes, str(identificador))
     for i in range(Num_iteraciones):
         agentes = F.juega_ronda(agentes, politicas, UMBRAL)
         agentes = F.agentes_aprenden(agentes, i)
-    data = crea_dataframe_agentes(Num_agentes, tipoRed, agentes, Num_iteraciones, PARS, N)
+    data = crea_dataframe_agentes(Num_agentes, tipoRed, agentes, Num_iteraciones, PARS, identificador)
     # data['Politica_lag'] = data.groupby('Agente')['Politica'].transform('shift', 1)
     # data['Consistencia'] = data.apply(lambda x : F.encontrar_consistencia (x['Politica'], x['Politica_lag']), axis=1)
-    F.guardar(data, './data/simulaciones-' + tipoRed + '-' + str(PARS[0]) + '-' + str(PARS[1]) + '.csv', inicial)
+    F.guardar(data, 'simulaciones-' + tipoRed + '-' + str(PARS[0]) + '-' + str(PARS[1]) + '.csv', inicial)
 
 Num_experimentos = 100
 Num_iteraciones = 100
@@ -64,13 +64,19 @@ identificador = 0
 UMBRAL = 0.5
 inicial = True
 
+print('********************************')
 print('Corriendo simulaciones...')
+print('********************************')
+print("")
 tipoRed = 'GRG'
 for Num_agentes in [10, 11, 100, 101]:
     for p in [0.1 * x for x in range(1, 11)]:
+        print('Corriendo experimentos con parametros:')
+        print('Num_agentes:', Num_agentes)
+        print('p:', p)
         for i in range(Num_experimentos):
             PARS = [Num_agentes, p]
-            redes1.create_graph(PARS[0], tipoRed, PARS[1], True, imagen=False, identificador)
+            redes1.create_graph(PARS[0], tipoRed, PARS[1], True, imagen=False, identificador=str(identificador))
             simulacion(Num_agentes, tipoRed, Num_iteraciones, UMBRAL, inicial, identificador, PARS)
             identificador += 1
             inicial = False
