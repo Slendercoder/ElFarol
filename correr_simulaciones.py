@@ -56,7 +56,7 @@ def simulacion(Num_agentes, tipoRed, Num_iteraciones, UMBRAL, inicial, identific
     data = crea_dataframe_agentes(Num_agentes, tipoRed, agentes, Num_iteraciones, PARS, identificador)
     # data['Politica_lag'] = data.groupby('Agente')['Politica'].transform('shift', 1)
     # data['Consistencia'] = data.apply(lambda x : F.encontrar_consistencia (x['Politica'], x['Politica_lag']), axis=1)
-    F.guardar(data, 'simulaciones-' + tipoRed + '-' + str(PARS[0]) + '-' + str(PARS[1]) + '.csv', inicial)
+    F.guardar(data, 'simulaciones-' + tipoRed + '-' + str(PARS[0]) + '-' + str(PARS[1]*10) + '.csv', inicial)
 
 Num_experimentos = 100
 Num_iteraciones = 100
@@ -70,7 +70,7 @@ print('********************************')
 print("")
 tipoRed = 'GRG'
 for Num_agentes in [10, 11, 100, 101]:
-    for p in [0.1 * x for x in range(1, 11)]:
+    for p in [0.1 * x for x in range(0, 11)]:
         print('Corriendo experimentos con parametros:')
         print('Num_agentes:', Num_agentes)
         print('p:', p)
