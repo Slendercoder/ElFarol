@@ -73,8 +73,8 @@ def simulacion(Num_agentes, tipoRed, Num_iteraciones, UMBRAL, inicial, identific
     data = crea_dataframe_agentes(Num_agentes, tipoRed, agentes, Num_iteraciones, PARS, identificador, 0)
     F.guardar(data, 'simulaciones-' + tipoRed + '-' + str(PARS[0]) + '-' + str(PARS[1]) + '.csv', inicial)
 
-Num_experimentos = 1
-Num_iteraciones = 5
+Num_experimentos = 100
+Num_iteraciones = 100
 identificador = 0
 UMBRAL = 0.5
 inicial = True
@@ -86,7 +86,7 @@ print("")
 tipoRed = 'GRG'
 conectividades = [0.02 * x for x in range(0, 5)] + [0.1 * x for x in range(1, 11)]
 conectividades = [round(x, 2) for x in conectividades]
-for Num_agentes in [10, 11, 100, 101]:
+for Num_agentes in [100]:
     for p in conectividades:
         print('Corriendo experimentos con parametros:')
         print('Num_agentes:', Num_agentes)
