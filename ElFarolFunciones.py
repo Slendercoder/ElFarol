@@ -61,7 +61,7 @@ def crear_agentes_aleatorios(Num_agentes, politicas, UMBRAL):
     for i in range(Num_agentes):
         Agentes.append(agente([rd.randint(0,1)], [], [rd.randint(0,7)], []))
 
-    X = F.calcula_medio(Agentes)
+    X = calcula_medio(Agentes)
 
     for a in Agentes:
         if a.estado[-1] == 1:

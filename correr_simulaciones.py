@@ -59,7 +59,7 @@ def crea_dataframe_agentes(Num_agentes, tipoRed, Agentes, Num_iteraciones, PARAM
         data[nombre] = lista_parametros[p]
 
     data['Politica_lag'] = data.groupby('Agente')['Politica'].transform('shift', 1)
-    data['Consistencia'] = data.apply(lambda x : encontrar_consistencia (x['Politica'], x['Politica_lag']), axis=1)
+    data['Consistencia'] = data.apply(lambda x : F.encontrar_consistencia (x['Politica'], x['Politica_lag']), axis=1)
     data = data[['Identificador','Parametro-0','Parametro-1','Agente','Ronda','Estado','Puntaje','Politica_lag','Politica','Consistencia']]
 
     return data
