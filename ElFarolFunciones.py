@@ -8,7 +8,7 @@ class agente:
         self.estado = estados # lista
         self.score = scores # lista
         self.politica = politicas # lista
-        self.vecinos = vecinos
+        self.vecinos = vecinos # lista
     def __str__(self):
         return "E:{0}, S:{1}, P:{2}, V{3}".format(self.estado, self.score,self.politica,self.vecinos)
 
@@ -33,7 +33,7 @@ def leer_red(Agentes, identificador=''):
 
     net = {}
 
-    In = open("data/connlist" + identificador + ".dat", "r")
+    In = open("data/redes/connlist-" + str(identificador) + ".dat", "r")
     for line in In:
         v = list(map(int, line.split()))
 
@@ -56,7 +56,7 @@ def leer_red(Agentes, identificador=''):
         except:
             Agentes[i].vecinos = []
 
-def crear_agentes_aleatorios(Num_agentes, politicas, UMBRAL):
+def crear_agentes_aleatorios(Num_agentes, politicas, UMBRAL, identificador=''):
     Agentes = []
     for i in range(Num_agentes):
         Agentes.append(agente([rd.randint(0,1)], [], [rd.randint(0,7)], []))
@@ -73,7 +73,7 @@ def crear_agentes_aleatorios(Num_agentes, politicas, UMBRAL):
             a.score.append(0)
 
     # Leyendo red de archivo para incluir vecinos
-    leer_red(Agentes)
+    leer_red(Agentes, identificador=identificador)
 
     return Agentes
 
@@ -94,6 +94,9 @@ def crear_agentes1():
                 a.score.append(1)
         else:
             a.score.append(0)
+
+    # Leyendo red de archivo para incluir vecinos
+    leer_red(Agentes)
 
     return Agentes
 
@@ -156,7 +159,7 @@ def encontrar_consistencia(politica, politica_lag):
         return 1
     else: return 0
 
-def crea_dataframe_agentes(Agentes, Num_iteraciones, PARAMETROS, N):
+def crea_dataframe_agentes(Agentes, Num_iteraciones, PARS, N):
 
     muestra = []
     agente = []
@@ -166,7 +169,7 @@ def crea_dataframe_agentes(Agentes, Num_iteraciones, PARAMETROS, N):
     politica = []
     lista_num_iteraciones = []
     lista_parametros = []
-    for p in PARAMETROS:
+    for p in PARS:
         lista_parametros.append([])
     for i in range(len(Agentes)):
         for r in range(Num_iteraciones):
@@ -177,8 +180,8 @@ def crea_dataframe_agentes(Agentes, Num_iteraciones, PARAMETROS, N):
             puntaje.append(Agentes[i].score[r])
             politica.append(Agentes[i].politica[r])
             lista_num_iteraciones.append(Num_iteraciones)
-            for x in range(len(PARAMETROS)):
-                lista_parametros[x].append(PARAMETROS[x])
+            for x in range(len(PARS)):
+                lista_parametros[x].append(PARS[x])
 
 
     data = pd.DataFrame.from_dict(\
@@ -191,12 +194,12 @@ def crea_dataframe_agentes(Agentes, Num_iteraciones, PARAMETROS, N):
     'Politica': politica\
     })
 
-    for p in range(len(PARAMETROS)):
+    for p in range(len(PARS)):
         nombre = 'Parametro-' + str(p)
         data[nombre] = lista_parametros[p]
 
-    data['Politica_lag'] = data.groupby('Agente')['Politica'].transform('shift', 1)
-    data['Consistencia'] = data.apply(lambda x : encontrar_consistencia (x['Politica'], x['Politica_lag']), axis=1)
+    data['Politica_lag'] = data.groupby(['Identificador', 'Agente'])['Politica'].transform('shift', 1)
+    data['Consistencia'] = data.apply(lambda x : encontrar_consistencia(x['Politica'], x['Politica_lag']), axis=1)
     data = data[['Identificador','Parametro-0','Parametro-1','Agente','Ronda','Estado','Puntaje','Politica_lag','Politica','Consistencia']]
 
     return data
