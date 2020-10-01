@@ -43,7 +43,8 @@ def random_graph(N, p, imagen=True, identificador=''):
     # print(lnkcnt)
     # print(float(sum(lnkcnt))/N)
 
-    ff = open('./data/redes/connlist-' + str(identificador) + '.dat', 'w')
+    aux = '-' if identificador != '' else ''
+    ff = open('./data/redes/connlist' + aux + str(identificador) + '.dat', 'w')
     for i in range(len(llinks)):
         # print("printing link")
         ff.write(str(llinks[i][0])+" "+str(llinks[i][1])+"\n")

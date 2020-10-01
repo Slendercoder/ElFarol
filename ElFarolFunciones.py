@@ -33,7 +33,8 @@ def leer_red(Agentes, identificador=''):
 
     net = {}
 
-    In = open("data/redes/connlist-" + str(identificador) + ".dat", "r")
+    aux = '-' if identificador != '' else ''
+    In = open("data/redes/connlist" + aux + str(identificador) + ".dat", "r")
     for line in In:
         v = list(map(int, line.split()))
 
@@ -103,7 +104,10 @@ def crear_agentes1():
 def juega_ronda(Agentes, politicas, UMBRAL):
     for a in Agentes:
         polit = politicas[a.politica[-1]]
-        a.estado.append(polit[(a.estado[-1], a.score[-1])])
+        try:
+            a.estado.append(polit[(a.estado[-1], a.score[-1])])
+        except:
+            a.estado.append(a.estado[-1])
 
     X = calcula_medio(Agentes)
     # print('Medio', X)
@@ -118,38 +122,147 @@ def juega_ronda(Agentes, politicas, UMBRAL):
 
     return Agentes
 
-def agentes_aprenden(Agentes, ronda):
-    #Los agentes copian la politica del ganador de la Ronda
-    for agente in Agentes:
-        maximo = agente.score[ronda]
-        maximo_vecino = Agentes.index(agente)
-        politica = agente.politica[ronda - 1]
-        # print("Considerando agente", maximo_vecino)
-        # print(agente)
-        # print("Puntaje de agente:", maximo, end = "")
-        puntajes_vecinos = [Agentes[index_vecino].score[ronda] for index_vecino in agente.vecinos]
-        # print(" Puntajes de los vecinos:", puntajes_vecinos)
-        if len(puntajes_vecinos) > 0:
-            if max(puntajes_vecinos) > maximo:
-                maximo_vecino = agente.vecinos[np.argmax(puntajes_vecinos)]
-                politica = Agentes[maximo_vecino].politica[ronda - 1]
-                # print('Se imita la politica', politica,'del vecino', maximo_vecino)
-        #     else:
-        #         print('Agente', maximo_vecino, 'no necesita aprender.')
-        # else:
-        #     print('El agente', maximo_vecino, 'no tiene vecinos')
-        agente.politica.append(politica)
+# def agentes_aprenden(Agentes, ronda):
+#     #Los agentes copian la politica del ganador de la Ronda
+#     for agente in Agentes:
+#         maximo = agente.score[ronda]
+#         maximo_vecino = Agentes.index(agente)
+#         politica = agente.politica[ronda - 1]
+#         # print("Considerando agente", maximo_vecino)
+#         # print(agente)
+#         # print("Puntaje de agente:", maximo, end = "")
+#         puntajes_vecinos = [Agentes[index_vecino].score[ronda] for index_vecino in agente.vecinos]
+#         # print(" Puntajes de los vecinos:", puntajes_vecinos)
+#         if len(puntajes_vecinos) > 0:
+#             if max(puntajes_vecinos) > maximo:
+#                 maximo_vecino = agente.vecinos[np.argmax(puntajes_vecinos)]
+#                 politica = Agentes[maximo_vecino].politica[ronda - 1]
+#                 # print('Se imita la politica', politica,'del vecino', maximo_vecino)
+#         #     else:
+#         #         print('Agente', maximo_vecino, 'no necesita aprender.')
+#         # else:
+#         #     print('El agente', maximo_vecino, 'no tiene vecinos')
+#         agente.politica.append(politica)
+#
+#     return Agentes
+
+def agentes_aprenden(Agentes, ronda, n=0, lose_shift=0, DEB=False):
+    # Dejamos n rondas para probar la política escogida
+    # En otras palabras, no hay aprendizaje por n rondas.
+    # Los agentes copian la politica del vecino con mayor
+    # puntaje acumulado en las n rondas. Si n<2, se aprende cada ronda.
+    # Usaremos también un lose_shift, es decir, si el puntaje acumulado
+    # es menor a este valor, entonces se cambia a una política aleatoria.
+    if n < 2:
+        for agente in Agentes:
+            maximo = agente.score[ronda]
+            maximo_vecino = Agentes.index(agente)
+            politica = agente.politica[ronda - 1]
+            puntajes_vecinos = [Agentes[index_vecino].score[ronda] for index_vecino in agente.vecinos]
+            if DEB:
+                print("Considerando agente", maximo_vecino)
+                print(agente)
+                print("Puntaje de agente:", maximo, end = "")
+                print(" Puntajes de los vecinos:", puntajes_vecinos)
+            if len(puntajes_vecinos) > 0:
+                if max(puntajes_vecinos) > maximo:
+                    maximo_vecino = agente.vecinos[np.argmax(puntajes_vecinos)]
+                    politica = Agentes[maximo_vecino].politica[ronda - 1]
+                    if DEB:
+                        print('Se imita la politica', politica,'del vecino', maximo_vecino)
+                else:
+                    if DEB:
+                        print('Agente', maximo_vecino, 'no tiene vecinos con mayor puntaje acumulado.')
+                    if maximo < lose_shift:
+                        if DEB:
+                            print("Puntaje acumulado superó el límite de pérdida!")
+                        politica = rd.randint(0,7)
+            else:
+                if DEB:
+                    print('El agente', maximo_vecino, 'no tiene vecinos')
+                if maximo < lose_shift:
+                    if DEB:
+                        print("Puntaje acumulado superó el límite de pérdida!")
+                    politica = rd.randint(0,7)
+            agente.politica.append(politica)
+    elif ronda % n == 0:
+        if DEB:
+            print("Ronda de aprendizaje:")
+        for agente in Agentes:
+            sco = agente.score[ronda-n+1:ronda+1]
+            if DEB:
+                print("Puntajes a acumular:", sco)
+            maximo = np.sum(agente.score[ronda-n+1:ronda+1])
+            maximo_vecino = Agentes.index(agente)
+            politica = agente.politica[ronda - 1]
+            estado = agente.estado[ronda]
+            puntajes_vecinos = [np.sum(Agentes[index_vecino].score[ronda-n+1:ronda+1]) for index_vecino in agente.vecinos]
+            if DEB:
+                print("Considerando agente", maximo_vecino)
+                print(agente)
+                print("Puntaje de agente:", maximo, end = "")
+                print(" Puntajes de los vecinos:", puntajes_vecinos)
+            if len(puntajes_vecinos) > 0:
+                if max(puntajes_vecinos) > maximo:
+                    maximo_vecino = agente.vecinos[np.argmax(puntajes_vecinos)]
+                    politica = Agentes[maximo_vecino].politica[ronda - 1]
+                    estado = Agentes[maximo_vecino].estado[ronda]
+                    if DEB:
+                        print('Se imita la politica', politica,'del vecino', maximo_vecino)
+                else:
+                    if DEB:
+                        print('Agente', maximo_vecino, 'no tiene vecinos con mayor puntaje acumulado.')
+                    if maximo < lose_shift:
+                        if DEB:
+                            print("Puntaje acumulado superó el límite de pérdida!")
+                        politica = rd.randint(0,7)
+            else:
+                if DEB:
+                    print('El agente', maximo_vecino, 'no tiene vecinos')
+                if maximo < lose_shift:
+                    if DEB:
+                        print("Puntaje acumulado superó el límite de pérdida!")
+                    politica = rd.randint(0,7)
+            agente.politica.append(politica)
+            agente.estado[ronda] = estado
+    else:
+        if DEB:
+            print("Esta ronda los agentes no aprenden")
+        for agente in Agentes:
+            politica = agente.politica[ronda - 1]
+            agente.politica.append(politica)
 
     return Agentes
 
-def simulacion(Num_agentes, Num_iteraciones, UMBRAL, inicial, N, PARS):
+# def simulacion(Num_agentes, Num_iteraciones, UMBRAL, inicial, N, PARS):
+#     politicas = crear_politicas()
+#     agentes = crear_agentes_aleatorios(Num_agentes, politicas, UMBRAL)
+#     for i in range(Num_iteraciones):
+#         agentes = juega_ronda(agentes, politicas, UMBRAL)
+#         agentes = agentes_aprenden(agentes, i + 1)
+#     data = crea_dataframe_agentes(agentes, Num_iteraciones, PARS, N)
+#     guardar(data, 'agentes.csv', inicial)
+
+def simulacion(Num_agentes, Num_iteraciones, UMBRAL, inicial, N, PARS, warm_up, lose_shift, DEB=False):
     politicas = crear_politicas()
     agentes = crear_agentes_aleatorios(Num_agentes, politicas, UMBRAL)
+    if DEB:
+        print("****************************")
+        print("Agentes iniciales:")
+        for a in agentes:
+            print(a)
+        print("****************************")
+        print("")
     for i in range(Num_iteraciones):
-        agentes = juega_ronda(agentes, politicas, UMBRAL)
-        agentes = agentes_aprenden(agentes, i + 1)
-    data = crea_dataframe_agentes(agentes, Num_iteraciones, PARS, N)
-    guardar(data, 'agentes.csv', inicial)
+        agentes = F.juega_ronda(agentes, politicas, UMBRAL)
+        if DEB:
+            print("==========================")
+            print("Ronda", i)
+            for a in agentes:
+                print(a)
+        agentes = agentes_aprenden(agentes, i + 1, warm_up, lose_shift, DEB)
+    data = F.crea_dataframe_agentes(agentes, Num_iteraciones, PARS, N)
+    F.guardar(data, 'agentes.csv', inicial)
 
 def encontrar_consistencia(politica, politica_lag):
     #print(politica_lag, type(politica_lag))
