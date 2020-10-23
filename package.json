@@ -1,0 +1,8 @@
+{
+    "name": "ElFarol",
+    "version": "0.0.1",
+    "description": "A nodeGame for El Farol Bar Problem (Arthur, 1994)",
+    "author": "Edgar Andrade <edgar.andrade@urosario.edu.co>",
+    "license": "MIT/X11",
+    "homepage": "http://nodegame.org"
+}

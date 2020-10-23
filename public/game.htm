@@ -1,0 +1,36 @@
+<!doctype html>
+<title>El Farol</title>
+<link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css" />
+<link rel="stylesheet" href="css/style.css" />
+<body>
+  <div id="container">
+    <h2>Juego del bar "El Farol"</h2>
+      <div>
+        <div align="center">
+            <div style="float: left">
+                <img src="./imagenes/ElFarol.jpeg" alt="Bar El Farol" width="auto" height="250">
+                <br>
+                <button type="button" id="boton_ir">Ir al bar</button>
+            </div>
+            <div style="float: right; margin-right: 100ptx">
+                <img src="./imagenes/stay_home.jpeg" alt="Bar El Farol" width="auto"   height="250">
+                <br>
+                <button type="button" id="boton_quedarse">Quedarse en casa</button>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+
+      </div>
+    <div id="dictator" style="display: none">
+      <h4>Make an offer from 0 to 100 to the other player</h4>
+      <input type="number" min="0" max="100" name="offer" id="offer" />
+      <input type="button" value="Submit" name="submitOffer" id="submitOffer" class="btn" />
+      <br/>
+    </div>
+    <div id="observer" style="display: none">
+      <h4 id="waitingFor">Waiting for the decision of the dictator<span id="dots"></span></h4>
+      <span id="decision"></span>
+      <br/>
+    </div>
+  </div>
+</body>
