@@ -37,7 +37,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         this.doneButton = node.widgets.append('DoneButton', header);
 
-        this.asistencia = 0;
+        this.asistencia = [];
         // Additional debug information while developing the game.
         // this.debugInfo = node.widgets.append('DebugInfo', header)
     });

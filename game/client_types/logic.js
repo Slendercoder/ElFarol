@@ -49,7 +49,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             //       ronda: node.player.stage.round,
             //       asistencia: X
             //     });
-            node.game.asistencia = X
+            node.game.asistencia.push(X)
             }); // End callback
         }
     });
