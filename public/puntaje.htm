@@ -1,6 +1,6 @@
 <!doctype html>
   <head>
-<!--    
+<!--
     <script type="text/javascript" src="js/raphael.js"></script>
 -->
     <title>Puntaje</title>
@@ -8,14 +8,33 @@
 <link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css" />
 <body>
 <style>
-    
+
+
+h1 {
+  font-family: 'Helvetica',sans-serif;
+  font-size: 36px;
+  line-height: 70px;
+  text-align: center;
+ }
+
+h3 {
+  font-family: 'Helvetica',sans-serif;
+  font-size: 16px;
+  text-align: left;
+  background-color: #f5f5f5;
+  padding: 15px 32px;
+  box-shadow: 2px 2px 2px #DCDCDC;
+}
+
     #container{
         width: 1300px;
         height: 300px;
         margin: 0 auto;
         padding-top: 20px;
         padding-bottom: 50px;
+
     }
+
 
 .column {
     float: left;
@@ -27,22 +46,25 @@
 }
 
 .middle {
-  width: 40%;
-}    
-    
+  width: 50%;
+}
+
+
 div.checks {
     position: relative;
     margin-left: auto;
     margin-right: auto;
+
 }
-    
+
 div.checks img{
     width: 20px;
-    height: 20px;    
+    height: 20px;
+
     /*margin-left: auto;
     margin-right: auto;*/
 }
-    
+
 .button1{
     background-color: #e7e7e7;
     color: black;
@@ -54,31 +76,33 @@ div.checks img{
     font-size: 16px;
 }
 </style>
-      
-    <h1>Puntaje acumulado</h1> 
-    <div class="column left" style="padding-top: 100px">
+
+    <h1>Puntaje total en las rondas</h1>
+    <div class="column left" style="padding-top: 200px">
     </div>
-    
-    <div class="column middle" style="padding-left: 0px; padding-top: 150px;">  
+
+    <div class="column middle" style="padding-left: 0px; padding-top: 150px;">
         <div id="puntAcum">
             <h3> La asistencia al bar en las últimas 5 rondas ha sido así:</h3>
+            <!-- La asistencia al bar en las últimas 5 rondas ha sido así:  -->
             <span id="canvas_container2"></span>
         </div>
         <br><br><br>
         <div id="puntAcum">
             <h3> Su desempeño total ha sido así:</h3>
+            <!-- Su desempeño total ha sido así: -->
             <span id="canvas_container1"></span>
         </div>
     </div>
-    
-    
-    <div class="column right" style="padding-top: 250px">
+
+
+    <div class="column right" style="padding-top: 500px">
         <div id = "confirmar" align="right" style="padding-top: 0px;">
             <button class="button1" id='continuar'>Continuar</button>
-        </div>        
+        </div>
     </div>
   </div>
-  
+
 
 
 </body>
@@ -89,8 +113,8 @@ div.checks img{
         var node = parent.node;
         var me = node.player.id; // My id.
         var msg = node.game.puntajeAcumulado;
-        console.log('Puntaje acumulado', msg);
-        
+        console.log('Puntaje en todas las rondas', msg);
+
         // Create the square for the locations and score using RAPHAEL.JS
         console.log('Raphael intenta crear paper1...');
         var paper1 = new Raphael(document.getElementById('canvas_container1'), 500, 140);
@@ -123,7 +147,7 @@ div.checks img{
         } else if (maximo == 0) {
             alto = 100;
             // Add coordinate for (0, 0)
-            camino = camino + '60 ';                
+            camino = camino + '60 ';
         } else {
             alto = 100 / maximo;
             // Add coordinate for (0, 0)
@@ -139,7 +163,7 @@ div.checks img{
             camino = camino + 'L' + (i * ancho + 20) + ' ';
             if (maximo == 0) {
                 camino = camino + '60 ';
-                camino_inverso = '60 ' + camino_inverso;                
+                camino_inverso = '60 ' + camino_inverso;
             }
             else {
                 camino = camino + ((maximo - puntajes[i]) * alto + 10) + ' ';
