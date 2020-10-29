@@ -59,6 +59,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
           console.log('Puntaje...');
           var n;
           n = node.game.asistencia;
+          lista_string = n.toString()
           // for (var i = 0; i<5; i++){
           //   asistencia.push(aux[i][value])
           // }
