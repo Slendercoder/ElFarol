@@ -33,40 +33,42 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
             console.log('\n%%%%%%%%%%%%%%%');
             console.log('Game round: ' + node.player.stage.round);
-            var X;
-            X = 0;
             node.on.data('done', function(msg) {
                 var estado;
                 estado = msg.data.estado;
-
                 if (estado == 1) {
-                  X += 1;
                   console.log('Jugador ' + msg.from + ' va al bar.');
                 } else {
                   console.log('Jugador ' + msg.from + ' NO va al bar.');
                 }
-            // node.game.memory.add({
-            //       ronda: node.player.stage.round,
-            //       asistencia: X
-            //     });
-            node.game.asistencia.push(X)
-            }); // End callback
+            }); // End on.data 'done'
         }
     });
 
     stager.extendStep('puntaje', {
         cb: function() {
-          console.log('Puntaje...');
-          var n;
-          n = node.game.asistencia;
-          lista_string = n.toString();
-          // for (var i = 0; i<5; i++){
-          //   asistencia.push(aux[i][value])
-          // }
+          var ronda = node.player.stage.round;
+          console.log('Puntaje ronda ' + ronda + '...');
+          // Obtiene asistencia como lista
+          var n = node.game.memory.select('estado').fetch();
+          // console.log(n);
+          var asistencia = [];
+          var p;
+          for (var r = 1; r <= ronda; r++) {
+            p = 0;
+            n.forEach((item, i) => {
+              if (item['stage']['round'] == r) {
+                if (item['estado'] == '1') {
+                  p += 1;
+                }
+              }
+            }); // End forEach
+            asistencia.push(p);
+          } // End for
           // Loop through all connected players.
           node.game.pl.each(function(player) {
               // Get the value saved in the registry, and send it.
-              node.say('ASISTENCIA', player.id, n);
+              node.say('ASISTENCIA', player.id, asistencia.toString());
           });
         }
     });
