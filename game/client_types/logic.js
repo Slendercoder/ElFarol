@@ -50,10 +50,40 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
           var ronda = node.player.stage.round;
           console.log('Puntaje ronda ' + ronda + '...');
           // Obtiene asistencia como lista
-          var n = node.game.memory.select('estado').fetch();
+          var n = node.game.memory.select('estado').fetch(); // Select in the memory the raw data that contains "estado"
+          var groupedByPlayer=groupBy(n, 'player') // Dictionary: Agrupation by pñayes
+          console.log(groupedByPlayer);
           // console.log(n);
+          var asistencias ={} // Saves Player : [Estado_1,...,Estado_r]
           var asistencia = [];
           var p;
+          /***for (var r = 1; r <= ronda; r++) {
+            n.forEach((item, i) => {
+              if (item['stage']['round'] == r) {
+                if (item['estado'] == '1') {
+                  p += 1;
+                }
+              }
+            });**/ // End forEach
+          for(var player in groupedByPlayer){
+
+            var player_stages = groupedByPlayer[player] // Is a JSON
+
+            for (var i = 0; i < player_stages.length;i++ ){
+
+              var player_stage = player_stages[i]
+              var estado = player_stage['estado']
+
+              
+              if(asistencias[player]){ // If there exist already the key
+                asistencias[player].push(estado)
+              } else { // If not create the key:array
+                asistencias[player] = [estado]
+              }
+              
+            }
+          }
+          console.log(asistencias)
           for (var r = 1; r <= ronda; r++) {
             p = 0;
             n.forEach((item, i) => {
@@ -83,4 +113,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.setOnGameOver(function() {
         // Something to do.
     });
+    
+};
+
+var groupBy = function(xs, key) { // Function that agroup values by key
+  return xs.reduce(function(rv, x) {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
+  }, {});
 };

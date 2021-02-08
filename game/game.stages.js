@@ -11,9 +11,9 @@
 
 module.exports = function(stager, settings) {
 
-     stager
-        .next('instructions')
-        .repeat('game', settings.REPEAT)
+     stager // Stager define a sequence of steps on that particular stage
+        .next('instructions') 
+        .repeat('game', settings.REPEAT) // Repeat as the settings was passed on the function
         .next('end')
         .gameover();
 

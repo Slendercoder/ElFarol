@@ -80,7 +80,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             };
 
         },
-        timeup: function() {
+        timeup: function() { //Me Parece este codigo no tiene funcionalidad (PREGUNTAR)
             var n;
             // Generate random value.
             n = J.randomInt(-1,100);
