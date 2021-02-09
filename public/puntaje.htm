@@ -1,8 +1,6 @@
 <!doctype html>
   <head>
-<!--
     <script type="text/javascript" src="js/raphael.js"></script>
--->
     <meta charset="UTF-8">
     <title>Puntaje</title>
   </head>
@@ -108,10 +106,75 @@ div.checks img{
 </body>
 
   <script type="text/javascript">
-    var dict1 = document.getElementById("canvas_container1");
-    for(key in dict1){
-        console.log(key)
-    }
-    console.log("Aca")
-    console.log(dict1)
+    window.onload = function() {
+
+        if ('undefined' !== typeof window.paper) return;
+        var node = parent.node;
+        var me = node.player.id; // My id.
+
+        // Create the square for the locations and score using RAPHAEL.JS
+        // console.log('Raphael intenta crear paper1...');
+        var paper1 = new Raphael(document.getElementById('canvas_container1'), 500, 140);
+
+        window.drawScore = function(msg) {
+            // Clear whatever is in there.
+            paper1.clear();
+
+            var aux = [0];
+            msg = aux.concat(msg);
+            paper1.rect(20, 10, 480, 100);
+
+            // Uses only the last 20 rounds to draw the score
+            if (msg.length > 20) {
+                msg = msg.slice(msg.length - 20, msg.length);
+            }
+
+            // Divide rectangle according to data
+            var minimo = Math.min.apply(Math,msg);
+            var maximo = Math.max.apply(Math,msg);
+            var ancho = 480 / (msg.length - 1);
+            var alto;
+            // String to define path
+            var camino = 'M20 ';
+            if (minimo < 0) {
+                alto = 100 / (maximo - minimo);
+                // Add coordinate for (0, 0)
+                camino = camino + (maximo * alto + 10) + ' ';
+            } else {
+                alto = 100 / maximo;
+                // Add coordinate for (0, 0)
+                camino = camino + '110 ';
+            }
+            // I need first to construct the inverse path
+            // in order to cheat Raphael's path-construction into
+            // making a line.
+            var camino_inverso = '';
+
+            // Construct string to define paths
+            for (var i = 1; i < msg.length; i++) {
+                camino = camino + 'L' + (i * ancho + 20) + ' ';
+                camino = camino + ((maximo - msg[i]) * alto + 10) + ' ';
+                camino_inverso = ((maximo - msg[i]) * alto + 10) + ' ' + camino_inverso;
+                camino_inverso = 'L' + (i * ancho + 20) + ' ' + camino_inverso;
+            }
+            // debugger
+
+            paper1.rect(20, 10, 480, 100);
+            paper1.text(-10, 60, 'Puntaje')
+                .attr({'text-anchor': 'start', 'font-size': 10})
+                .transform('r270');
+            //                  paper1.text(240, 120, camino)
+            paper1.text(240, 120, 'Rondas (últimas 20)')
+                .attr({'text-anchor': 'start', 'font-size': 10});
+            paper1.path(camino + ' ' + camino_inverso).attr({stroke: "blue"});
+
+        };
+
+        // Draws accumulated score
+        node.events.game.on('drawScore', window.drawScore); // end node.on 'DrawScore'
+        // node.events.game.on('drawScore', function(msg) {
+        //   console.log('Entrando a drawScore', msg);
+        // }); // end node.on 'DrawScore'
+
+    } // end onload function
   </script>

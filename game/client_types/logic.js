@@ -49,33 +49,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
           var ronda = node.player.stage.round;
           console.log('Puntaje ronda ' + ronda + '...');
+          // CODIGO EDGAR
           // Obtiene asistencia como lista
-          var n = node.game.memory.select('estado').fetch(); // Select in the memory the raw data that contains "estado"
-          var groupedByPlayer=groupBy(n, 'player') // Dictionary: Agrupation by player
-          console.log(groupedByPlayer);
+          var n = node.game.memory.select('estado').fetch();
           // console.log(n);
-          var asistencias ={} // Saves Player : [Estado_1,...,Estado_r]
           var asistencia = [];
           var p;
-          for(var player in groupedByPlayer){
-
-            var player_stages = groupedByPlayer[player] // Is a JSON
-
-            for (var i = 0; i < player_stages.length;i++ ){
-
-              var player_stage = player_stages[i]
-              var estado = player_stage['estado']
-
-              
-              if(asistencias[player]){ // If there exist already the key
-                asistencias[player].push(estado)
-              } else { // If not create the key:array
-                asistencias[player] = [estado]
-              }
-              
-            }
-          }
-          console.log(asistencias)
           for (var r = 1; r <= ronda; r++) {
             p = 0;
             n.forEach((item, i) => {
@@ -89,11 +68,68 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
           } // End for
           // Loop through all connected players.
           node.game.pl.each(function(player) {
+              // find whether player went to bar
+              n = node.game.memory.select('estado').and('player','=',player.id).fetch();
+              // console.log(n);
+              var puntaje=[];
+              for (var r = 1; r <= ronda; r++) {
+                n.forEach((item, i) => {
+                  if (item['stage']['round'] == r) {
+                    // Hacer todas las consideraciones para incluir
+                    // el umbral y sacar el puntaje
+                    puntaje.push(item['estado']);
+                  }
+                }); // End forEach
+              } // End for
               // Get the value saved in the registry, and send it.
-              node.say('ASISTENCIA', player.id, asistencia.toString());
-              node.say('ASISTENCIAS',player.id, JSON.stringify(asistencias))
+              node.say('ASISTENCIA', player.id, [asistencia.toString(), puntaje.toString()]);
           });
-          
+
+          // // Obtiene asistencia como lista
+          // var n = node.game.memory.select('estado').fetch(); // Select in the memory the raw data that contains "estado"
+          // var groupedByPlayer=groupBy(n, 'player') // Dictionary: Agrupation by player
+          // console.log(groupedByPlayer);
+          // // console.log(n);
+          // var asistencias ={} // Saves Player : [Estado_1,...,Estado_r]
+          // var asistencia = [];
+          // var p;
+          // for(var player in groupedByPlayer){
+          //
+          //   var player_stages = groupedByPlayer[player] // Is a JSON
+          //
+          //   for (var i = 0; i < player_stages.length;i++ ){
+          //
+          //     var player_stage = player_stages[i]
+          //     var estado = player_stage['estado']
+          //
+          //
+          //     if(asistencias[player]){ // If there exist already the key
+          //       asistencias[player].push(estado)
+          //     } else { // If not create the key:array
+          //       asistencias[player] = [estado]
+          //     }
+          //
+          //   }
+          // }
+          // console.log(asistencias)
+          // for (var r = 1; r <= ronda; r++) {
+          //   p = 0;
+          //   n.forEach((item, i) => {
+          //     if (item['stage']['round'] == r) {
+          //       if (item['estado'] == '1') {
+          //         p += 1;
+          //       }
+          //     }
+          //   }); // End forEach
+          //   asistencia.push(p);
+          // } // End for
+          // // Loop through all connected players.
+          // node.game.pl.each(function(player) {
+          //     // Get the value saved in the registry, and send it.
+          //     node.say('ASISTENCIA', player.id, asistencia.toString());
+          //     node.say('ASISTENCIAS',player.id, JSON.stringify(asistencias))
+          // });
+
         }
     });
 
@@ -107,7 +143,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.setOnGameOver(function() {
         // Something to do.
     });
-    
+
 };
 
 var groupBy = function(xs, key) { // Function that agroup values by key
