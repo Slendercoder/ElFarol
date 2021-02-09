@@ -108,79 +108,10 @@ div.checks img{
 </body>
 
   <script type="text/javascript">
-    window.onload = function() {
-        if ('undefined' !== typeof window.paper) return;
-        var node = parent.node;
-        var me = node.player.id; // My id.
-        var msg = node.game.puntajeAcumulado;
-        console.log('Puntaje en todas las rondas', msg);
-
-        // Create the square for the locations and score using RAPHAEL.JS
-        console.log('Raphael intenta crear paper1...');
-        var paper1 = new Raphael(document.getElementById('canvas_container1'), 500, 140);
-        console.log('...Raphael logra crear paper1');
-        // Clear whatever is in there.
-        console.log('Raphael intenta limpiar lo que hay en paper1...')
-        paper1.clear();
-        console.log('...Raphael logra limpiar lo que hay en paper1')
-        var cantidadRondas = Object.keys(msg).length;
-        console.log('cantidadRondas', cantidadRondas);
-        var puntajes = [];
-        puntajes.push(0);
-        for (var i=1; i < cantidadRondas + 1; i++) {
-            puntajes.push(msg[i]);
-        }
-        console.log('Puntajes', puntajes);
-        // Divide rectangle according to data
-        var minimo = Math.min.apply(Math, puntajes);
-        var maximo = Math.max.apply(Math, puntajes);
-        console.log('min', minimo, 'max', maximo);
-        var ancho = 480 / (puntajes.length - 1);
-        console.log('ancho', ancho);
-        var alto;
-        // String to define path
-        var camino = 'M20 ';
-        if (minimo < 0) {
-            alto = 100 / (maximo - minimo);
-            // Add coordinate for (0, 0)
-            camino = camino + (maximo * alto + 10) + ' ';
-        } else if (maximo == 0) {
-            alto = 100;
-            // Add coordinate for (0, 0)
-            camino = camino + '60 ';
-        } else {
-            alto = 100 / maximo;
-            // Add coordinate for (0, 0)
-            camino = camino + '110 ';
-        }
-        console.log('alto', alto);
-        // I  first need to construe the inverse path
-        // in order to cheat Raphael's path-construction into
-        // making a line.
-        var camino_inverso = '';
-        // Construct string to define paths
-        for (var i = 1; i < puntajes.length; i++) {
-            camino = camino + 'L' + (i * ancho + 20) + ' ';
-            if (maximo == 0) {
-                camino = camino + '60 ';
-                camino_inverso = '60 ' + camino_inverso;
-            }
-            else {
-                camino = camino + ((maximo - puntajes[i]) * alto + 10) + ' ';
-                camino_inverso = ((maximo - puntajes[i]) * alto + 10) + ' ' + camino_inverso;
-            }
-            camino_inverso = 'L' + (i * ancho + 20) + ' ' + camino_inverso;
-        }
-        console.log('camino', camino);
-        console.log('camino_inverso', camino_inverso);
-        // debugger
-        paper1.rect(20, 10, 480, 100);
-        paper1.text(-10, 60, 'Puntaje')
-            .attr({'text-anchor': 'start', 'font-size': 10})
-            .transform('r270');
-        //                  paper1.text(240, 120, camino)
-        paper1.text(240, 120, 'Rondas')
-            .attr({'text-anchor': 'start', 'font-size': 10});
-        paper1.path(camino + ' ' + camino_inverso).attr({stroke: "blue"});
-    } // end onload function
+    var dict1 = document.getElementById("canvas_container1");
+    for(key in dict1){
+        console.log(key)
+    }
+    console.log("Aca")
+    console.log(dict1)
   </script>

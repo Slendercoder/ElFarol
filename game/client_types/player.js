@@ -98,6 +98,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             node.on.data('ASISTENCIA', function(msg){
               W.setInnerHTML('canvas_container2', msg.data);
             });
+            node.on.data('ASISTENCIAS', function(msg){
+                W.setInnerHTML('canvas_container1', msg.data);
+              });
         }
     });
 

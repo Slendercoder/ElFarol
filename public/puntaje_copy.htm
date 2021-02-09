@@ -1,0 +1,186 @@
+<!doctype html>
+  <head>
+<!--
+    <script type="text/javascript" src="js/raphael.js"></script>
+-->
+    <meta charset="UTF-8">
+    <title>Puntaje</title>
+  </head>
+<link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css" />
+<body>
+<style>
+
+
+h1 {
+  font-family: 'Helvetica',sans-serif;
+  font-size: 36px;
+  line-height: 70px;
+  text-align: center;
+ }
+
+h3 {
+  font-family: 'Helvetica',sans-serif;
+  font-size: 16px;
+  text-align: left;
+  background-color: #f5f5f5;
+  padding: 15px 32px;
+  box-shadow: 2px 2px 2px #DCDCDC;
+}
+
+  #container{
+      width: 1300px;
+      height: 300px;
+      margin: 0 auto;
+      padding-top: 20px;
+      padding-bottom: 50px;
+}
+
+
+.column {
+  float: left;
+  padding: 10px;
+}
+
+.left, .right {
+  width: 25%;
+}
+
+.middle {
+  width: 40%;
+}
+
+
+div.checks {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+div.checks img{
+    width: 20px;
+    height: 20px;
+
+    /*margin-left: auto;
+    margin-right: auto;*/
+}
+
+.button1{
+    background-color: #e7e7e7;
+    color: black;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+</style>
+
+    <h1>Puntaje total en las rondas</h1>
+    <div class="column left" style="padding-top: 200px">
+    </div>
+
+    <div class="column middle" style="padding-left: 0px; padding-top: 150px;">
+        <div id="puntAcum">
+            <h3> La asistencia al bar en las últimas 5 rondas ha sido así:</h3>
+            <!-- La asistencia al bar en las últimas 5 rondas ha sido así:  -->
+            <span id="canvas_container2"></span>
+        </div>
+        <br><br><br>
+        <div id="puntAcum">
+            <h3> Su desempeño total ha sido así:</h3>
+            <!-- Su desempeño total ha sido así: -->
+            <span id="canvas_container1"></span>
+        </div>
+    </div>
+
+
+    <div class="column right" style="padding-top: 600px">
+        <div id = "confirmar" align="right" style="padding-top: 0px;">
+            <button class="button1" id='continuar'>Continuar</button>
+        </div>
+    </div>
+  </div>
+
+
+</body>
+
+  <script type="text/javascript">
+    window.onload = function() {
+        if ('undefined' !== typeof window.paper) return;
+        var node = parent.node;
+        var me = node.player.id; // My id.
+        var msg = node.game.puntajeAcumulado;
+        console.log('Puntaje en todas las rondas', msg);
+
+        // Create the square for the locations and score using RAPHAEL.JS
+        console.log('Raphael intenta crear paper1...');
+        var paper1 = new Raphael(document.getElementById('canvas_container1'), 500, 140);
+        console.log('...Raphael logra crear paper1');
+        // Clear whatever is in there.
+        console.log('Raphael intenta limpiar lo que hay en paper1...')
+        paper1.clear();
+        console.log('...Raphael logra limpiar lo que hay en paper1')
+        var cantidadRondas = Object.keys(msg).length;
+        console.log('cantidadRondas', cantidadRondas);
+        var puntajes = [];
+        puntajes.push(0);
+        for (var i=1; i < cantidadRondas + 1; i++) {
+            puntajes.push(msg[i]);
+        }
+        console.log('Puntajes', puntajes);
+        // Divide rectangle according to data
+        var minimo = Math.min.apply(Math, puntajes);
+        var maximo = Math.max.apply(Math, puntajes);
+        console.log('min', minimo, 'max', maximo);
+        var ancho = 480 / (puntajes.length - 1);
+        console.log('ancho', ancho);
+        var alto;
+        // String to define path
+        var camino = 'M20 ';
+        if (minimo < 0) {
+            alto = 100 / (maximo - minimo);
+            // Add coordinate for (0, 0)
+            camino = camino + (maximo * alto + 10) + ' ';
+        } else if (maximo == 0) {
+            alto = 100;
+            // Add coordinate for (0, 0)
+            camino = camino + '60 ';
+        } else {
+            alto = 100 / maximo;
+            // Add coordinate for (0, 0)
+            camino = camino + '110 ';
+        }
+        console.log('alto', alto);
+        // I  first need to construe the inverse path
+        // in order to cheat Raphael's path-construction into
+        // making a line.
+        var camino_inverso = '';
+        // Construct string to define paths
+        for (var i = 1; i < puntajes.length; i++) {
+            camino = camino + 'L' + (i * ancho + 20) + ' ';
+            if (maximo == 0) {
+                camino = camino + '60 ';
+                camino_inverso = '60 ' + camino_inverso;
+            }
+            else {
+                camino = camino + ((maximo - puntajes[i]) * alto + 10) + ' ';
+                camino_inverso = ((maximo - puntajes[i]) * alto + 10) + ' ' + camino_inverso;
+            }
+            camino_inverso = 'L' + (i * ancho + 20) + ' ' + camino_inverso;
+        }
+        console.log('camino', camino);
+        console.log('camino_inverso', camino_inverso);
+        // debugger
+        paper1.rect(20, 10, 480, 100);
+        paper1.text(-10, 60, 'Puntaje')
+            .attr({'text-anchor': 'start', 'font-size': 10})
+            .transform('r270');
+        //                  paper1.text(240, 120, camino)
+        paper1.text(240, 120, 'Rondas')
+            .attr({'text-anchor': 'start', 'font-size': 10});
+        paper1.path(camino + ' ' + camino_inverso).attr({stroke: "blue"});
+    } // end onload function
+  </script>

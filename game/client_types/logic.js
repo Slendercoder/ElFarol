@@ -51,20 +51,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
           console.log('Puntaje ronda ' + ronda + '...');
           // Obtiene asistencia como lista
           var n = node.game.memory.select('estado').fetch(); // Select in the memory the raw data that contains "estado"
-          var groupedByPlayer=groupBy(n, 'player') // Dictionary: Agrupation by pñayes
+          var groupedByPlayer=groupBy(n, 'player') // Dictionary: Agrupation by player
           console.log(groupedByPlayer);
           // console.log(n);
           var asistencias ={} // Saves Player : [Estado_1,...,Estado_r]
           var asistencia = [];
           var p;
-          /***for (var r = 1; r <= ronda; r++) {
-            n.forEach((item, i) => {
-              if (item['stage']['round'] == r) {
-                if (item['estado'] == '1') {
-                  p += 1;
-                }
-              }
-            });**/ // End forEach
           for(var player in groupedByPlayer){
 
             var player_stages = groupedByPlayer[player] // Is a JSON
@@ -99,7 +91,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
           node.game.pl.each(function(player) {
               // Get the value saved in the registry, and send it.
               node.say('ASISTENCIA', player.id, asistencia.toString());
+              node.say('ASISTENCIAS',player.id, JSON.stringify(asistencias))
           });
+          
         }
     });
 

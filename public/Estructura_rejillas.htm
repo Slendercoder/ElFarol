@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+    <script src="raphael.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        var asistencias = { '917331226156028': [ 1, 0 ,1,1], '816038574813178': [ 0, 1 ,1,1] };
+
+
+        window.onload = function(){
+        var xlol = 50
+
+        var p = Raphael(0,0,400,400);
+
+        rounds = asistencias[Object.keys(asistencias)[0]].length;
+
+        titles_x = 50
+        titles_y = 50
+
+        Size_rect = 30;
+
+        // Title Jugadores
+        p.text(titles_x,titles_y-30, "Jugadores").attr({"font-size": "12px","font-weight": "800",});
+        // Title Rondas
+        p.text(titles_x+60+(rounds-1)*Size_rect/2,titles_y-30, "Rondas").attr({"font-size": "12px","font-weight": "800",});
+
+        shift_player_name_x = titles_x;
+        shift_player_name_y = titles_y + 10;
+        shift_player_rect_x = shift_player_name_x+Size_rect/2;
+        shift_player_rect_y = shift_player_name_y-Size_rect/2;
+
+        n_player = 0
+        for(var player in asistencias){
+
+            var text1 = p.text(shift_player_name_x,shift_player_name_y, player); // Adding text player
+
+            var asistencias_player = asistencias[player];
+            var asistenciaslength = asistencias_player.length;
+
+            for (var i = 0; i < asistenciaslength; i++) {
+                console.log("Entro")
+                var rect = p.rect(shift_player_rect_x + 30*(i+1),shift_player_rect_y+30*(n_player),30,30);
+                if(asistencias_player[i]==1){ // If in the rond 1 it went
+                    rect.attr({fill: "rgb(51,153,255)"});
+                }
+
+            }
+
+            shift_player_name_y = shift_player_name_y +Size_rect;
+
+            n_player = n_player +1;
+
+        }
+
+        p.rect(shift_player_rect_x + 30*(rounds+3),shift_player_rect_y,30,30).attr({fill: "rgb(51,153,255)"});
+        p.rect(shift_player_rect_x + 30*(rounds+3),shift_player_rect_y+30,30,30);
+
+        p.text(shift_player_rect_x + 30*(rounds+5),titles_y + 10, "Ir").attr({"font-size": "12px","font-weight": "800",});
+        p.text(shift_player_rect_x + 30*(rounds+5),titles_y + 10 +Size_rect, "No ir").attr({"font-size": "12px","font-weight": "800",});
+
+        }
+    </script>
+    </head>
+    <body>
+
+    </body>
+</html>
