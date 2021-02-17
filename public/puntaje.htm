@@ -1,6 +1,7 @@
 <!doctype html>
   <head>
     <script type="text/javascript" src="js/raphael.js"></script>
+    <script type="text/javascript" src="js/g.line.js"></script>
     <meta charset="UTF-8">
     <title>Puntaje</title>
   </head>
@@ -119,15 +120,15 @@ div.checks img{
 
         // ---------------------------------- GRAFICA DE ASISTENCIA -------------------------------------------- //
         window.drawAsistencia = function(msg) {
-          console.log("Si entra")
+          console.log("Si entra");
           p.clear();
-          console.log("Mensaje",msg)
+          console.log("Mensaje",msg);
           // Converting message to JSON in order to be able to use it as dictionary
           var asistencias = JSON.parse(msg);
-          console.log("Asistencias",asistencias)
+          console.log("Asistencias",asistencias);
           rounds = asistencias[Object.keys(asistencias)[0]].length;
-          titles_x = 50
-          titles_y = 50
+          titles_x = 50;
+          titles_y = 50;
 
           Size_rect = 30;
 
@@ -141,7 +142,7 @@ div.checks img{
           shift_player_rect_x = shift_player_name_x+Size_rect/2;
           shift_player_rect_y = shift_player_name_y-Size_rect/2;
 
-          n_player = 0
+          n_player = 0;
           for(var player in asistencias){
 
               var text1 = p.text(shift_player_name_x,shift_player_name_y, player); // Adding text player
@@ -171,50 +172,83 @@ div.checks img{
           p.text(shift_player_rect_x + 30*(rounds+5),titles_y + 10 +Size_rect, "No ir").attr({"font-size": "12px","font-weight": "800",});
 
 
-        }
+        };
         // ---------------------------------- GRAFICA DE ASISTENCIA -------------------------------------------- //
-           window.drawScore = function(msg) {
+          window.drawScore = function(msg) {
+
+            var puntajes = JSON.parse(msg);
+            console.log('puntajes en html', puntajes);
+
             // Clear whatever is in there.
             paper1.clear();
-            console.log("mensaje puntaje",msg);
             var aux = [0];
-            msg = aux.concat(msg);
-            paper1.rect(20, 10, 480, 100);
+            puntajes = aux.concat(puntajes);
+            console.log("mensaje puntaje", puntajes);
 
             // Uses only the last 20 rounds to draw the score
-            if (msg.length > 20) {
-                msg = msg.slice(msg.length - 20, msg.length);
+            if (puntajes.length > 20) {
+                puntajes = puntajes.slice(puntajes.length - 20, puntajes.length);
             }
 
             // Divide rectangle according to data
-            var minimo = Math.min.apply(Math,msg);
-            var maximo = Math.max.apply(Math,msg);
-            var ancho = 480 / (msg.length - 1);
-            var alto;
+            // var minimo = Math.min.apply(Math, puntajes);
+            // var maximo = Math.max.apply(Math, puntajes);
+            // var ancho = 480 / (puntajes.length - 1);
+            // console.log('Max', maximo, 'Min', minimo, 'ancho', ancho);
+            // var alto;
+
+            var ancho = 480 / (puntajes.length - 1);
+            var alto = 50;
+
+            // var alto = 50;
+            // var xVal = [0];
+            // var yVal = [0];
+            // var x = 0;
+            // var y = 0;
+            //
+            // for (var i = 1; i < puntajes.length; i++) {
+            //   x = i * ancho;
+            //   y = (puntajes[i] + 1) * alto;
+            //   paper1.rect((i - 1) * ancho, 0, x, y);
+            //   xVal.push(x);
+            //   yVal.push(y);
+            // }
+            // console.log('xVal', xVal);
+            // console.log('yVal', yVal);
+
             // String to define path
             var camino = 'M20 ';
-            if (minimo < 0) {
-                alto = 100 / (maximo - minimo);
-                // Add coordinate for (0, 0)
-                camino = camino + (maximo * alto + 10) + ' ';
-            } else {
-                alto = 100 / maximo;
-                // Add coordinate for (0, 0)
-                camino = camino + '110 ';
-            }
+            // if (minimo < 0) {
+            //     alto = 100 / (maximo - minimo);
+            //     // Add coordinate for (0, 0)
+            //     camino = camino + (maximo * alto + 10) + ' ';
+            // } else {
+            //     alto = 100 / maximo;
+            //     // Add coordinate for (0, 0)
+            //     camino = camino + '110 ';
+            // }
+
+            camino = camino + '110 ';
+
             // I need first to construct the inverse path
             // in order to cheat Raphael's path-construction into
             // making a line.
             var camino_inverso = '';
+            var ptx, pty;
 
             // Construct string to define paths
-            for (var i = 1; i < msg.length; i++) {
-                camino = camino + 'L' + (i * ancho + 20) + ' ';
-                camino = camino + ((maximo - msg[i]) * alto + 10) + ' ';
-                camino_inverso = ((maximo - msg[i]) * alto + 10) + ' ' + camino_inverso;
-                camino_inverso = 'L' + (i * ancho + 20) + ' ' + camino_inverso;
+            for (var i = 1; i < puntajes.length; i++) {
+                ptx = i * ancho + 20;
+                pty = 100 - (puntajes[i] + 1) * alto + 10;
+                camino = camino + 'L' + ptx + ' ';
+                camino = camino + pty + ' ';
+                console.log('pty', pty, 'i', i);
+                camino_inverso = pty + ' ' + camino_inverso;
+                camino_inverso = 'L' + ptx + ' ' + camino_inverso;
             }
-            // debugger
+            console.log("camino inverso", camino_inverso);
+            camino = camino + ' ' + camino_inverso;
+            console.log("camino", camino);
 
             paper1.rect(20, 10, 480, 100);
             paper1.text(-10, 60, 'Puntaje')
@@ -223,12 +257,12 @@ div.checks img{
             //                  paper1.text(240, 120, camino)
             paper1.text(240, 120, 'Rondas (últimas 20)')
                 .attr({'text-anchor': 'start', 'font-size': 10});
-            paper1.path(camino + ' ' + camino_inverso).attr({stroke: "blue"});
+            paper1.path(camino).attr({stroke: "blue"});
 
-        }; 
+        };
 
         // Draws accumulated score
-        node.events.game.on('drawScore', window.drawScore); // end node.on 'DrawScore'
+        node.events.game.on('drawScore', window.drawScore);
         node.events.game.on('drawAsistencia', window.drawAsistencia)
         //   console.log('Entrando a drawScore', msg);
         // }); // end node.on 'DrawScore'

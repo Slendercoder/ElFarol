@@ -62,19 +62,19 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
            for(var player1 in groupedByPlayer){
             n_jugadores +=1
              var player_stages = groupedByPlayer[player1] // Is a JSON
-          
+
              for (var i = 0; i < player_stages.length;i++ ){
-          
+
                var player_stage = player_stages[i]
                var estado = player_stage['estado']
-          
-          
+
+
                if(asistencias[player1]){ // If there exist already the key
                  asistencias[player1].push(estado)
                } else { // If not create the key:array
                  asistencias[player1] = [estado]
                }
-          
+
              }
            }
            console.log(asistencias);
@@ -90,7 +90,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
               }
             }); // End forEach
             asistencia.push(p);
-          } 
+          }
           var n1 = asistencia.length;
           console.log("Numero Jugadores",n_jugadores);
           // End for
@@ -121,12 +121,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
                   }
                 }); // End forEach
-              } 
+              }
               console.log("Puntaje",puntaje);
               // End for
               // Get the value saved in the registry, and send it.
-              node.say('ASISTENCIA', player.id, puntaje);
-              node.say('ASISTENCIAS',player.id, JSON.stringify(asistencias))
+              node.say('PUNTAJE', player.id, JSON.stringify(puntaje));
+              node.say('ASISTENCIAS',player.id, JSON.stringify(asistencias));
           });
         }
     });

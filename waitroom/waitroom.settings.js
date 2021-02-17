@@ -32,7 +32,7 @@ module.exports = {
      *
      * The size of each group dispatched by the waiting room
      */
-    GROUP_SIZE: 3,
+    GROUP_SIZE: 2,
 
     /**
      * ## POOL_SIZE (number) Optional
