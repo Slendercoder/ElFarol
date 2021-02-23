@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+    <script src="js/plotly-latest.min.js"></script>
+    </head>
+    <body>
+        <div id="tester" style="width:600px;height:250px;"></div>
+    </body>
+    <script>
+        var asistencias = [ 1, 0 ,1,-1];
+        var rondas =[0,1,2,3,4]
+        
+        TESTER = document.getElementById('tester');
+
+        
+        var trace1 = {
+        x: rondas,
+        y: asistencias,
+        mode: 'lines+markers',
+        type: 'scatter'
+        };
+
+        var data = [trace1];
+
+        var layout = {
+            xaxis: {
+                title: 'Rondas'
+            },
+            yaxis: {
+                title: 'Puntaje'
+            },
+        };
+
+        Plotly.newPlot(TESTER, data, layout);
+        </script>
+</html>

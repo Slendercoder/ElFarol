@@ -1,0 +1,185 @@
+[{
+    "time": 454,
+    "timeup": false,
+    "estado": 1,
+    "done": true,
+    "player": "810435919501508",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 1
+    },
+    "timestamp": 1613841149213
+}, {
+    "time": 1025,
+    "timeup": false,
+    "estado": 1,
+    "done": true,
+    "player": "596870286017040",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 1
+    },
+    "timestamp": 1613841150213
+}, {
+    "time": 1921,
+    "timeup": false,
+    "done": true,
+    "player": "810435919501508",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 1
+    },
+    "timestamp": 1613841153106
+}, {
+    "time": 3136,
+    "timeup": false,
+    "done": true,
+    "player": "596870286017040",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 1
+    },
+    "timestamp": 1613841154079
+}, {
+    "time": 934,
+    "timeup": false,
+    "estado": 1,
+    "done": true,
+    "player": "596870286017040",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 2
+    },
+    "timestamp": 1613841155307
+}, {
+    "time": 1106,
+    "timeup": false,
+    "estado": 0,
+    "done": true,
+    "player": "810435919501508",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 2
+    },
+    "timestamp": 1613841156259
+}, {
+    "time": 1700,
+    "timeup": false,
+    "done": true,
+    "player": "596870286017040",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 2
+    },
+    "timestamp": 1613841158866
+}, {
+    "time": 2936,
+    "timeup": false,
+    "done": true,
+    "player": "810435919501508",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 2
+    },
+    "timestamp": 1613841159562
+}, {
+    "time": 2280,
+    "timeup": false,
+    "estado": 1,
+    "done": true,
+    "player": "810435919501508",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 3
+    },
+    "timestamp": 1613841162147
+}, {
+    "time": 2734,
+    "timeup": false,
+    "estado": 0,
+    "done": true,
+    "player": "596870286017040",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 3
+    },
+    "timestamp": 1613841162893
+}, {
+    "time": 1625,
+    "timeup": false,
+    "done": true,
+    "player": "596870286017040",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 3
+    },
+    "timestamp": 1613841164899
+}, {
+    "time": 1457,
+    "timeup": false,
+    "done": true,
+    "player": "810435919501508",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 3
+    },
+    "timestamp": 1613841165643
+}, {
+    "time": 13694,
+    "timeup": false,
+    "estado": 0,
+    "done": true,
+    "player": "810435919501508",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 4
+    },
+    "timestamp": 1613841179644
+}, {
+    "time": 14269,
+    "timeup": false,
+    "estado": 0,
+    "done": true,
+    "player": "596870286017040",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 4
+    },
+    "timestamp": 1613841180427
+}, {
+    "time": 14835,
+    "timeup": false,
+    "done": true,
+    "player": "596870286017040",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 4
+    },
+    "timestamp": 1613841195618
+}, {
+    "time": 15181,
+    "timeup": false,
+    "done": true,
+    "player": "810435919501508",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 4
+    },
+    "timestamp": 1613841196371
+}]

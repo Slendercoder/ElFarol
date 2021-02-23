@@ -96,14 +96,20 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         frame: 'puntaje.htm',
         cb: function() {
             node.on.data('PUNTAJE', function(msg){
-              // W.setInnerHTML('canvas_container1', msg.data);
+              //W.setInnerHTML('canvas_container1', msg.data);
               node.emit('drawScore', msg.data);
             });
 
             node.on.data('ASISTENCIAS', function(msg){
-              W.setInnerHTML('canvas_container2', msg.data);
-              // node.emit('drawAsistencia', msg.data);
+              //W.setInnerHTML('canvas_container2', msg.data);
+              node.emit('drawAsistencia', msg.data);
             });
+            // Continue Boton
+            var boton_done = W.gid('continuar');
+            boton_done.onclick = function() {
+							node.done();
+            };
+
         }
     });
 

@@ -102,7 +102,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
               console.log("n",n);
               // console.log(n);
               var puntaje=[];
+              var rondas =[];
               for (var r = 1; r <= ronda; r++) {
+                rondas.unshift(r)
                 n.forEach((item, i) => {
                   if (item['stage']['round'] == r) {
                     // Hacer todas las consideraciones para incluir
@@ -110,13 +112,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                     console.log("Jugador: ",item," ronda: ",r,"Estado:",item['estado'])
                     var umbral = asistencia[n1-r]/n_jugadores
                     if (item['estado'] == 1 && umbral <=0.5){
-                      puntaje.push(1);
+                      puntaje.unshift(1); // unshift append in order
                     }
                     else if (item['estado'] == 1 && umbral >0.5){
-                      puntaje.push(-1);
+                      puntaje.unshift(-1);
                     }
                     else {
-                      puntaje.push(0);
+                      puntaje.unshift(0);
                     }
 
                   }
@@ -125,18 +127,24 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
               console.log("Puntaje",puntaje);
               // End for
               // Get the value saved in the registry, and send it.
-              node.say('PUNTAJE', player.id, JSON.stringify(puntaje));
+              node.say('PUNTAJE', player.id, JSON.stringify([rondas,puntaje]));
               node.say('ASISTENCIAS',player.id, JSON.stringify(asistencias));
           });
         }
     });
 
     stager.extendStep('end', {
-        cb: function() {
-            // Save data in the data/roomXXX directory.
-            node.game.memory.save('data.json');
-        }
-    });
+      cb: function() {
+          // Save data in the data/roomXXX directory.
+          var numero = node.nodename.slice(node.nodename.length - 4, node.nodename.length);
+          var archivo = channel.getGameDir();
+          archivo += '/data/' + node.nodename;
+          archivo += '/data_' + numero + '.json';
+          node.game.memory.save(archivo);
+          console.log('Data saved to ' + archivo);
+      }
+  });
+
 
     stager.setOnGameOver(function() {
         // Something to do.
