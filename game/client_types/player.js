@@ -80,14 +80,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             };
 
         },
-        timeup: function() { //Me Parece este codigo no tiene funcionalidad (PREGUNTAR)
-            var n;
-            // Generate random value.
-            n = J.randomInt(-1,100);
-            // Set value in the input box.
-            W.gid('offer').value = n;
-            // Click the submit button to trigger the event listener.
-            W.gid('submitOffer').click();
+				timeup: function() { //Me Parece este codigo no tiene funcionalidad (PREGUNTAR)
+            var decision;
+            // Generate random decision.
+            decision = J.randomInt(0,1);
+						node.done({ estado: decision });
         }
     });
 
