@@ -1,0 +1,201 @@
+[{
+    "estado": 1,
+    "time": 8180,
+    "timeup": false,
+    "done": true,
+    "player": "534831306013569",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 1
+    },
+    "timestamp": 1614718566371,
+    "session": "room000315"
+}, {
+    "estado": 0,
+    "time": 10130,
+    "timeup": false,
+    "done": true,
+    "player": "585982174885246",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 1
+    },
+    "timestamp": 1614718568316,
+    "session": "room000315"
+}, {
+    "time": 2491,
+    "timeup": false,
+    "done": true,
+    "player": "534831306013569",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 1
+    },
+    "timestamp": 1614718571119,
+    "session": "room000315"
+}, {
+    "time": 3874,
+    "timeup": false,
+    "done": true,
+    "player": "585982174885246",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 1
+    },
+    "timestamp": 1614718572502,
+    "session": "room000315"
+}, {
+    "estado": 1,
+    "time": 1081,
+    "timeup": false,
+    "done": true,
+    "player": "534831306013569",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 2
+    },
+    "timestamp": 1614718573772,
+    "session": "room000315"
+}, {
+    "estado": 0,
+    "time": 2657,
+    "timeup": false,
+    "done": true,
+    "player": "585982174885246",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 2
+    },
+    "timestamp": 1614718575348,
+    "session": "room000315"
+}, {
+    "time": 2183,
+    "timeup": false,
+    "done": true,
+    "player": "534831306013569",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 2
+    },
+    "timestamp": 1614718577859,
+    "session": "room000315"
+}, {
+    "time": 4068,
+    "timeup": false,
+    "done": true,
+    "player": "585982174885246",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 2
+    },
+    "timestamp": 1614718579747,
+    "session": "room000315"
+}, {
+    "estado": 0,
+    "time": 1295,
+    "timeup": false,
+    "done": true,
+    "player": "534831306013569",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 3
+    },
+    "timestamp": 1614718581231,
+    "session": "room000315"
+}, {
+    "estado": 1,
+    "time": 2721,
+    "timeup": false,
+    "done": true,
+    "player": "585982174885246",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 3
+    },
+    "timestamp": 1614718582649,
+    "session": "room000315"
+}, {
+    "time": 5007,
+    "timeup": false,
+    "done": true,
+    "player": "534831306013569",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 3
+    },
+    "timestamp": 1614718587992,
+    "session": "room000315"
+}, {
+    "time": 6749,
+    "timeup": false,
+    "done": true,
+    "player": "585982174885246",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 3
+    },
+    "timestamp": 1614718589725,
+    "session": "room000315"
+}, {
+    "estado": 1,
+    "time": 1901,
+    "timeup": false,
+    "done": true,
+    "player": "534831306013569",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 4
+    },
+    "timestamp": 1614718591818,
+    "session": "room000315"
+}, {
+    "estado": 1,
+    "time": 3018,
+    "timeup": false,
+    "done": true,
+    "player": "585982174885246",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 4
+    },
+    "timestamp": 1614718592932,
+    "session": "room000315"
+}, {
+    "time": 4747,
+    "timeup": false,
+    "done": true,
+    "player": "585982174885246",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 4
+    },
+    "timestamp": 1614718598002,
+    "session": "room000315"
+}, {
+    "time": 5771,
+    "timeup": false,
+    "done": true,
+    "player": "534831306013569",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 4
+    },
+    "timestamp": 1614718599029,
+    "session": "room000315"
+}]

@@ -1,0 +1,201 @@
+[{
+    "estado": 0,
+    "time": 1091,
+    "timeup": false,
+    "done": true,
+    "player": "331070327291277",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 1
+    },
+    "timestamp": 1614718486562,
+    "session": "room000314"
+}, {
+    "estado": 1,
+    "time": 2651,
+    "timeup": false,
+    "done": true,
+    "player": "295878181870840",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 1
+    },
+    "timestamp": 1614718488128,
+    "session": "room000314"
+}, {
+    "time": 9918,
+    "timeup": false,
+    "done": true,
+    "player": "331070327291277",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 1
+    },
+    "timestamp": 1614718498354,
+    "session": "room000314"
+}, {
+    "time": 11472,
+    "timeup": false,
+    "done": true,
+    "player": "295878181870840",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 1
+    },
+    "timestamp": 1614718499904,
+    "session": "room000314"
+}, {
+    "estado": 1,
+    "time": 2334,
+    "timeup": false,
+    "done": true,
+    "player": "331070327291277",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 2
+    },
+    "timestamp": 1614718502427,
+    "session": "room000314"
+}, {
+    "estado": 0,
+    "time": 3922,
+    "timeup": false,
+    "done": true,
+    "player": "295878181870840",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 2
+    },
+    "timestamp": 1614718504011,
+    "session": "room000314"
+}, {
+    "time": 14492,
+    "timeup": false,
+    "done": true,
+    "player": "331070327291277",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 2
+    },
+    "timestamp": 1614718518827,
+    "session": "room000314"
+}, {
+    "time": 15637,
+    "timeup": false,
+    "done": true,
+    "player": "295878181870840",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 2
+    },
+    "timestamp": 1614718519974,
+    "session": "room000314"
+}, {
+    "estado": 1,
+    "time": 1099,
+    "timeup": false,
+    "done": true,
+    "player": "331070327291277",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 3
+    },
+    "timestamp": 1614718521257,
+    "session": "room000314"
+}, {
+    "estado": 1,
+    "time": 2293,
+    "timeup": false,
+    "done": true,
+    "player": "295878181870840",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 3
+    },
+    "timestamp": 1614718522449,
+    "session": "room000314"
+}, {
+    "time": 8693,
+    "timeup": false,
+    "done": true,
+    "player": "331070327291277",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 3
+    },
+    "timestamp": 1614718531472,
+    "session": "room000314"
+}, {
+    "time": 10048,
+    "timeup": false,
+    "done": true,
+    "player": "295878181870840",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 3
+    },
+    "timestamp": 1614718532822,
+    "session": "room000314"
+}, {
+    "estado": 0,
+    "time": 3066,
+    "timeup": false,
+    "done": true,
+    "player": "331070327291277",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 4
+    },
+    "timestamp": 1614718536072,
+    "session": "room000314"
+}, {
+    "estado": 1,
+    "time": 4516,
+    "timeup": false,
+    "done": true,
+    "player": "295878181870840",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 4
+    },
+    "timestamp": 1614718537525,
+    "session": "room000314"
+}, {
+    "time": 6054,
+    "timeup": false,
+    "done": true,
+    "player": "331070327291277",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 4
+    },
+    "timestamp": 1614718543925,
+    "session": "room000314"
+}, {
+    "time": 7639,
+    "timeup": false,
+    "done": true,
+    "player": "295878181870840",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 4
+    },
+    "timestamp": 1614718545512,
+    "session": "room000314"
+}]

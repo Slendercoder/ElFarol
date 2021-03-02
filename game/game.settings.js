@@ -30,13 +30,15 @@ module.exports = {
      */
     TIMER: {
 			instructions: 180000,
-			eleccion: 5000,
-			puntaje: 5000
+			pagos: 60000,
+			eleccion: 30000,
+			puntaje: 30000
     },
 
     // # Game specific properties
 
     // Number of game rounds repetitions.
     REPEAT: 4,
+		INFORMACION: true
 
 };

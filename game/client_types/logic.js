@@ -12,6 +12,72 @@
 var ngc = require('nodegame-client');
 var J = ngc.JSUS;
 
+// Function to find total attendance
+function findAttendance(n,ronda) {
+	var asistencia = [];
+	var p; // Inicializa variable de asistencia total en ronda
+	for (var r = 1; r <= ronda; r++) {
+		p = 0;
+		n.forEach((item, i) => {
+			if (item['stage']['round'] == r) {
+				if (item['estado'] == '1') {
+					p += 1; // item contiene una asistencia que se adiciona
+				}
+			}
+		}); // End forEach
+		asistencia.push(p);
+	}
+	return asistencia;
+}; // end function findAttendance
+
+// Finction to find assistencias per player
+function findPlAttendances(n) {
+	var groupedByPlayer = groupBy(n,'player'); // Dictionary: Agrupation by player
+	var asistencias = {};
+	for(var player in groupedByPlayer){
+	  var player_stages = groupedByPlayer[player]; // Is a JSON
+	  for (var i = 0; i < player_stages.length; i++){
+	    var player_stage = player_stages[i];
+	    var estado = player_stage['estado'];
+	    if(asistencias[player]){ // If there exist already the key
+	      asistencias[player].push(estado);
+	    } else { // If not create the key:array
+	      asistencias[player] = [estado];
+	    }
+	  }
+	}
+	return asistencias;
+}
+
+// Function to find bar overcrowed
+function findOvercrowded(asistencia,umbral,ronda) {
+	var overcrowed = [];
+	for (var r = 0; r < ronda; r++) {
+		if (asistencia[r] > umbral) {
+			overcrowed.push(1);
+		} else {
+			overcrowed.push(0);
+		}
+	}
+	return overcrowed;
+}; // end function findOvercrowded
+
+function findScore(players_attendance,overcrowed,ronda) {
+	var score = [];
+	for (var r = 0; r < ronda; r++) {
+		if (players_attendance[r] == 0) {
+			score.push(0);
+		} else {
+			if (overcrowed[r] == 0) {
+				score.push(1);
+			} else {
+				score.push(-1);
+			}
+		}
+	}
+	return score;
+}; // end function findScore
+
 module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     var node = gameRoom.node;
@@ -25,7 +91,17 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('instructions', {
         cb: function() {
-            console.log('Instructions.');
+            console.log('Instrucciones...');
+						var n_players = node.game.pl.pcounter;
+						node.game.pl.each(function(player) {
+							node.say('Nplayers', player.id, [n_players, settings.REPEAT, settings.INFORMACION, settings.TIMER.eleccion]);
+						});
+        }
+    });
+
+		stager.extendStep('pagos', {
+        cb: function() {
+            console.log('Pagos...');
         }
     });
 
@@ -33,15 +109,15 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
             console.log('\n%%%%%%%%%%%%%%%');
             console.log('Game round: ' + node.player.stage.round);
-            node.on.data('done', function(msg) {
-                var estado;
-                estado = msg.data.estado;
-                if (estado == 1) {
-                  console.log('Jugador ' + msg.from + ' va al bar.');
-                } else {
-                  console.log('Jugador ' + msg.from + ' NO va al bar.');
-                }
-            }); // End on.data 'done'
+            // node.on.data('done', function(msg) {
+            //     var estado;
+            //     estado = msg.data.estado;
+            //     if (estado == 1) {
+            //       console.log('Jugador ' + msg.from + ' va al bar.');
+            //     } else {
+            //       console.log('Jugador ' + msg.from + ' NO va al bar.');
+            //     }
+            // }); // End on.data 'done'
         }
     });
 
@@ -49,91 +125,22 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
           var ronda = node.player.stage.round;
           console.log('Puntaje ronda ' + ronda + '...');
-
-          // CODIGO EDGAR
-          // Obtiene asistencia como lista
+					var n_players = node.game.pl.pcounter;
           var n = node.game.memory.select('estado').fetch();// Select in the memory the raw data that contains "estado"
-          // console.log(n);
-           // Obtiene asistencia como lista
-           var groupedByPlayer=groupBy(n, 'player') // Dictionary: Agrupation by player
-           console.log(groupedByPlayer);
-           var asistencias ={} // Saves Player : [Estado_1,...,Estado_r]
-           var p;
-           var n_jugadores =0;
-           for(var player1 in groupedByPlayer){
-            n_jugadores +=1
-             var player_stages = groupedByPlayer[player1] // Is a JSON
-
-             for (var i = 0; i < player_stages.length;i++ ){
-
-               var player_stage = player_stages[i]
-               var estado = player_stage['estado']
-
-
-               if(asistencias[player1]){ // If there exist already the key
-                 asistencias[player1].push(estado)
-               } else { // If not create the key:array
-                 asistencias[player1] = [estado]
-               }
-
-             }
-           }
-           console.log(asistencias);
-          var asistencia = [];
-          var p;
-          for (var r = 1; r <= ronda; r++) {
-            p = 0;
-            n.forEach((item, i) => {
-              if (item['stage']['round'] == r) {
-                if (item['estado'] == '1') {
-                  p += 1;
-                }
-              }
-            }); // End forEach
-            asistencia.push(p);
-          }
-          var n1 = asistencia.length;
-          console.log("Numero Jugadores",n_jugadores);
-          // End for
-          // Loop through all connected players.
+					var asistencia = findAttendance(n,ronda);
+					// console.log('Asistencia al bar', asistencia);
+					var overcrowed = findOvercrowded(asistencia,0.5*n_players,ronda);
+					// console.log('Sobrecupo del bar', overcrowed);
+					var asistencias = findPlAttendances(n);
           node.game.pl.each(function(player) {
-            console.log("Jugador",player.id);
-              // find whether player went to bar
-              n = node.game.memory.select('estado').and('player','=',player.id).fetch();
-              console.log("n",n);
-              // console.log(n);
-              var overcrowed = [];
-              var puntaje=[];
-              var rondas =[];
-              for (var r = 1; r <= ronda; r++) {
-                rondas.unshift(r);
-                n.forEach((item, i) => {
-                  // Funcion puntaje
-                  if (item['stage']['round'] == r) {
-                    console.log("Jugador: ",item," ronda: ",r,"Estado:",item['estado'])
-                    var umbral = asistencia[n1-r]/n_jugadores
-                    if(umbral <=0.5){ //0.5 is the threshold
-                      overcrowed.unshift(0);
-                    }
-                    else{
-                      overcrowed.unshift(1);
-                    }
-                    if (item['estado'] == 1 && umbral <=0.5){
-                      puntaje.unshift(1); // unshift append in order
-                    }
-                    else if (item['estado'] == 1 && umbral >0.5){
-                      puntaje.unshift(-1);
-                    }
-                    else {
-                      puntaje.unshift(0);
-                    }
-
-                  }
-                }); // End forEach
-              }
-              console.log("Puntaje",puntaje);
-              // End for
-              // Get the value saved in the registry, and send it.
+							var players_attendance = asistencias[player.id];
+							// console.log('Asistencia del jugador', player.id, players_attendance);
+              var puntaje = findScore(players_attendance,overcrowed,ronda);
+							// console.log('Puntaje jugador', player.id, puntaje);
+              var rondas = [];
+							for (var r = 1; r <= ronda; r++) {
+								rondas.push(r);
+							}
               node.say('PUNTAJE', player.id, JSON.stringify([rondas,puntaje]));
               node.say('ASISTENCIAS',player.id, JSON.stringify([asistencias,overcrowed,player.id]));
           });
@@ -143,81 +150,30 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('end', {
       cb: function() {
         var ronda = settings.REPEAT; // Obtaining round - ERROR, no obtiene las rondas generadas anteriormente
-        console.log("ronda",ronda);
-        var n = node.game.memory.select('estado').fetch();// Select in the memory the raw data that contains "estado"
-        // console.log(n);
-         // Obtiene asistencia como lista
-        var groupedByPlayer=groupBy(n, 'player'); // Dictionary: Agrupation by player
-        var n_jugadores =0;
-        for(var player1 in groupedByPlayer){
-          n_jugadores +=1;
-         }
-        var asistencia = [];
-        var p;
-        for (var r = 1; r <= ronda; r++) {
-          p = 0;
-          n.forEach((item, i) => {
-            if (item['stage']['round'] == r) {
-              if (item['estado'] == '1') {
-                p += 1;
-              }
-            }
-          }); // End forEach
-          asistencia.push(p);
-        }
-        var n1 = asistencia.length;
-          // Save data in the data/roomXXX directory.
-          var numero = node.nodename.slice(node.nodename.length - 4, node.nodename.length);
-          var archivo = channel.getGameDir();
-          // printing money -------------------------------------------
-          node.game.pl.each(function(player) {
-              n = node.game.memory.select('estado').and('player','=',player.id).fetch();
-              console.log("n",n);
-              // console.log(n);
-              var overcrowed = [];
-              var puntaje=[];
-              var rondas =[];
-              for (var r = 1; r <= ronda; r++) {
-                rondas.unshift(r);
-                n.forEach((item, i) => {
-                  // Funcion puntaje
-                  if (item['stage']['round'] == r) {
-                    console.log("Jugador: ",item," ronda: ",r,"Estado:",item['estado'])
-                    var umbral = asistencia[n1-r]/n_jugadores
-                    if(umbral <=0.5){ //0.5 is the threshold
-                      overcrowed.unshift(0);
-                    }
-                    else{
-                      overcrowed.unshift(1);
-                    }
-                    if (item['estado'] == 1 && umbral <=0.5){
-                      puntaje.unshift(1); // unshift append in order
-                    }
-                    else if (item['estado'] == 1 && umbral >0.5){
-                      puntaje.unshift(-1);
-                    }
-                    else {
-                      puntaje.unshift(0);
-                    }
-
-                  }
-                }); // End forEach
-              }
-              //Sum puntaje
-              console.log("Puntaje",puntaje);
-              var sumpuntaje = puntaje.reduce((a, b) => a + b, 0); // summing all the list values of puntajes
-              console.log("sumpuntaje",sumpuntaje);
-              var dinerototal = sumpuntaje*500; // Payment formula
-              dinerototal = Math.max(0,dinerototal) +10000;
-              dinerototal = dinerototal.toString();
-              dinerototal.concat(" $");
-              console.log("Dinero Total",dinerototal);
-              // End fors
-              // Get the value saved in the registry, and send it.
-              node.say('SUMPUNTAJE', player.id, dinerototal);
+				var n_players = node.game.pl.pcounter;
+				var n = node.game.memory.select('estado').fetch();// Select in the memory the raw data that contains "estado"
+				var asistencia = findAttendance(n,ronda);
+				var overcrowed = findOvercrowded(asistencia,0.5*n_players,ronda);
+				var asistencias = findPlAttendances(n);
+        node.game.pl.each(function(player) {
+					var players_attendance = asistencias[player.id];
+					var puntaje = findScore(players_attendance,overcrowed,ronda);
+          //Sum puntaje
+          var sumpuntaje = puntaje.reduce((a, b) => a + b, 0); // summing all the list values of puntajes
+          // console.log("sumpuntaje",sumpuntaje);
+          var dinerototal = sumpuntaje*500; // Payment formula
+          dinerototal = Math.max(0,dinerototal) +10000;
+          dinerototal = dinerototal.toString();
+          dinerototal.concat(" $");
+          // console.log("Dinero Total",dinerototal);
+          // End fors
+          // Get the value saved in the registry, and send it.
+          node.say('SUMPUNTAJE', player.id, dinerototal);
           });
 
-          // printing money -------------------------------------------
+					// Save data in the data/roomXXX directory.
+          var numero = node.nodename.slice(node.nodename.length - 4, node.nodename.length);
+          var archivo = channel.getGameDir();
           archivo += '/data/' + node.nodename;
           archivo += '/data_' + numero + '.json';
           node.game.memory.save(archivo);

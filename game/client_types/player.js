@@ -43,9 +43,34 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('instructions', {
         frame: 'instructions.htm',
+				donebutton: false,
 				cb: function() {
-					W.setInnerHTML('personas', 2);
+					node.on.data('Nplayers', function(msg){
+						var n_jugadores = msg.data[0];
+						var umbral = Math.floor(Number(msg.data[0])/2);
+						var rondas = msg.data[1];
+						var informacion = msg.data[2];
+						var segundos = Math.floor(Number(msg.data[3])/1000);
+						W.setInnerHTML('personas', n_jugadores);
+						W.setInnerHTML('umbral1', umbral);
+						W.setInnerHTML('umbral2', umbral);
+						W.setInnerHTML('rondas', rondas);
+						W.setInnerHTML('segundos1', segundos);
+						W.setInnerHTML('segundos2', segundos);
+						if (informacion == true) {
+							W.setInnerHTML('informacion', 'la asistencia al bar, así como ');
+						};
+					});
+					// Continue Boton
+					var boton_done = W.gid('continuar');
+					boton_done.onclick = function() {
+						node.done();
+					};
 				}
+    });
+
+		stager.extendStep('pagos', {
+        frame: 'pagos.htm',
     });
 
     stager.extendStep('eleccion', {

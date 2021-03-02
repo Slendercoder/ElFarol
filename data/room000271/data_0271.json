@@ -1,0 +1,225 @@
+[{
+    "time": 180006,
+    "timeup": true,
+    "done": true,
+    "player": "800473504121743",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 1
+    },
+    "timestamp": 1614710295838,
+    "session": "room000271"
+}, {
+    "time": 180005,
+    "timeup": true,
+    "done": true,
+    "player": "201086364993646",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 1
+    },
+    "timestamp": 1614710295844,
+    "session": "room000271"
+}, {
+    "estado": 1,
+    "time": 5005,
+    "timeup": true,
+    "done": true,
+    "player": "201086364993646",
+    "stage": {
+        "stage": 2,
+        "step": 1,
+        "round": 1
+    },
+    "timestamp": 1614710301036,
+    "session": "room000271"
+}, {
+    "estado": 1,
+    "time": 5002,
+    "timeup": true,
+    "done": true,
+    "player": "800473504121743",
+    "stage": {
+        "stage": 2,
+        "step": 1,
+        "round": 1
+    },
+    "timestamp": 1614710301044,
+    "session": "room000271"
+}, {
+    "time": 5004,
+    "timeup": true,
+    "done": true,
+    "player": "800473504121743",
+    "stage": {
+        "stage": 2,
+        "step": 2,
+        "round": 1
+    },
+    "timestamp": 1614710306354,
+    "session": "room000271"
+}, {
+    "time": 5001,
+    "timeup": true,
+    "done": true,
+    "player": "201086364993646",
+    "stage": {
+        "stage": 2,
+        "step": 2,
+        "round": 1
+    },
+    "timestamp": 1614710306358,
+    "session": "room000271"
+}, {
+    "estado": 0,
+    "time": 5001,
+    "timeup": true,
+    "done": true,
+    "player": "800473504121743",
+    "stage": {
+        "stage": 2,
+        "step": 1,
+        "round": 2
+    },
+    "timestamp": 1614710311538,
+    "session": "room000271"
+}, {
+    "estado": 0,
+    "time": 5005,
+    "timeup": true,
+    "done": true,
+    "player": "201086364993646",
+    "stage": {
+        "stage": 2,
+        "step": 1,
+        "round": 2
+    },
+    "timestamp": 1614710311551,
+    "session": "room000271"
+}, {
+    "time": 5005,
+    "timeup": true,
+    "done": true,
+    "player": "201086364993646",
+    "stage": {
+        "stage": 2,
+        "step": 2,
+        "round": 2
+    },
+    "timestamp": 1614710316883,
+    "session": "room000271"
+}, {
+    "time": 5006,
+    "timeup": true,
+    "done": true,
+    "player": "800473504121743",
+    "stage": {
+        "stage": 2,
+        "step": 2,
+        "round": 2
+    },
+    "timestamp": 1614710316887,
+    "session": "room000271"
+}, {
+    "estado": 1,
+    "time": 5001,
+    "timeup": true,
+    "done": true,
+    "player": "201086364993646",
+    "stage": {
+        "stage": 2,
+        "step": 1,
+        "round": 3
+    },
+    "timestamp": 1614710322060,
+    "session": "room000271"
+}, {
+    "estado": 0,
+    "time": 5003,
+    "timeup": true,
+    "done": true,
+    "player": "800473504121743",
+    "stage": {
+        "stage": 2,
+        "step": 1,
+        "round": 3
+    },
+    "timestamp": 1614710322068,
+    "session": "room000271"
+}, {
+    "time": 5000,
+    "timeup": true,
+    "done": true,
+    "player": "800473504121743",
+    "stage": {
+        "stage": 2,
+        "step": 2,
+        "round": 3
+    },
+    "timestamp": 1614710327391,
+    "session": "room000271"
+}, {
+    "time": 5003,
+    "timeup": true,
+    "done": true,
+    "player": "201086364993646",
+    "stage": {
+        "stage": 2,
+        "step": 2,
+        "round": 3
+    },
+    "timestamp": 1614710327403,
+    "session": "room000271"
+}, {
+    "estado": 1,
+    "time": 5001,
+    "timeup": true,
+    "done": true,
+    "player": "201086364993646",
+    "stage": {
+        "stage": 2,
+        "step": 1,
+        "round": 4
+    },
+    "timestamp": 1614710332575,
+    "session": "room000271"
+}, {
+    "estado": 0,
+    "time": 5005,
+    "timeup": true,
+    "done": true,
+    "player": "800473504121743",
+    "stage": {
+        "stage": 2,
+        "step": 1,
+        "round": 4
+    },
+    "timestamp": 1614710332580,
+    "session": "room000271"
+}, {
+    "time": 5005,
+    "timeup": true,
+    "done": true,
+    "player": "800473504121743",
+    "stage": {
+        "stage": 2,
+        "step": 2,
+        "round": 4
+    },
+    "timestamp": 1614710337916,
+    "session": "room000271"
+}, {
+    "time": 5005,
+    "timeup": true,
+    "done": true,
+    "player": "201086364993646",
+    "stage": {
+        "stage": 2,
+        "step": 2,
+        "round": 4
+    },
+    "timestamp": 1614710337919,
+    "session": "room000271"
+}]
