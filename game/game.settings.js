@@ -30,8 +30,8 @@ module.exports = {
      */
     TIMER: {
 			instructions: 180000,
-			eleccion: 30000,
-			puntaje: 30000
+			eleccion: 5000,
+			puntaje: 5000
     },
 
     // # Game specific properties

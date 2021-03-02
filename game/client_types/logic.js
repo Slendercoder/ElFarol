@@ -49,6 +49,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
           var ronda = node.player.stage.round;
           console.log('Puntaje ronda ' + ronda + '...');
+
           // CODIGO EDGAR
           // Obtiene asistencia como lista
           var n = node.game.memory.select('estado').fetch();// Select in the memory the raw data that contains "estado"
@@ -206,7 +207,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
               console.log("Puntaje",puntaje);
               var sumpuntaje = puntaje.reduce((a, b) => a + b, 0); // summing all the list values of puntajes
               console.log("sumpuntaje",sumpuntaje);
-              var dinerototal = 20000 + sumpuntaje*1000 // Payment formula
+              var dinerototal = sumpuntaje*500; // Payment formula
+              dinerototal = Math.max(0,dinerototal) +10000;
               dinerototal = dinerototal.toString();
               dinerototal.concat(" $");
               console.log("Dinero Total",dinerototal);

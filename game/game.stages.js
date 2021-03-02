@@ -25,7 +25,7 @@ module.exports = function(stager, settings) {
           });
 
     // Modify the stager to skip one stage.
-    // stager.skip('instructions');
+     stager.skip('instructions');
 
     // To skip a step within a stage use:
     // stager.skip('stageName', 'stepName');
