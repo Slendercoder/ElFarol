@@ -42,7 +42,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     });
 
     stager.extendStep('instructions', {
-        frame: 'instructions.htm'
+        frame: 'instructions.htm',
+				cb: function() {
+					W.setInnerHTML('personas', 2);
+				}
     });
 
     stager.extendStep('eleccion', {
@@ -83,7 +86,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 				timeup: function() { //Me Parece este codigo no tiene funcionalidad (PREGUNTAR)
             var decision;
             // Generate random decision.
-            decision = J.randomInt(0,1);
+            decision = J.randomInt(-1,1);
 						node.done({ estado: decision });
         }
     });

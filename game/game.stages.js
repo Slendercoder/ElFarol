@@ -12,7 +12,7 @@
 module.exports = function(stager, settings) {
 
      stager // Stager define a sequence of steps on that particular stage
-        .next('instructions') 
+        .next('instructions')
         .repeat('game', settings.REPEAT) // Repeat as the settings was passed on the function
         .next('end')
         .gameover();
@@ -25,7 +25,7 @@ module.exports = function(stager, settings) {
           });
 
     // Modify the stager to skip one stage.
-    stager.skip('instructions');
+    // stager.skip('instructions');
 
     // To skip a step within a stage use:
     // stager.skip('stageName', 'stepName');
