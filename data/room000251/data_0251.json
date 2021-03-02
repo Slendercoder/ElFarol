@@ -1,0 +1,207 @@
+[{
+    "time": 6008,
+    "timeup": false,
+    "done": true,
+    "player": "751106790676493",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 1
+    },
+    "timestamp": 1614701924682
+}, {
+    "time": 6971,
+    "timeup": false,
+    "done": true,
+    "player": "437217201085164",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 1
+    },
+    "timestamp": 1614701926163
+}, {
+    "time": 917,
+    "timeup": false,
+    "estado": 1,
+    "done": true,
+    "player": "437217201085164",
+    "stage": {
+        "stage": 2,
+        "step": 1,
+        "round": 1
+    },
+    "timestamp": 1614701927372
+}, {
+    "time": 916,
+    "timeup": false,
+    "estado": 0,
+    "done": true,
+    "player": "751106790676493",
+    "stage": {
+        "stage": 2,
+        "step": 1,
+        "round": 1
+    },
+    "timestamp": 1614701928604
+}, {
+    "time": 2005,
+    "timeup": false,
+    "done": true,
+    "player": "751106790676493",
+    "stage": {
+        "stage": 2,
+        "step": 2,
+        "round": 1
+    },
+    "timestamp": 1614701931533
+}, {
+    "time": 30014,
+    "timeup": true,
+    "done": true,
+    "player": "437217201085164",
+    "stage": {
+        "stage": 2,
+        "step": 2,
+        "round": 1
+    },
+    "timestamp": 1614701961161
+}, {
+    "time": 8357,
+    "timeup": false,
+    "estado": 1,
+    "done": true,
+    "player": "751106790676493",
+    "stage": {
+        "stage": 2,
+        "step": 1,
+        "round": 2
+    },
+    "timestamp": 1614701970541
+}, {
+    "time": 10241,
+    "timeup": false,
+    "estado": 0,
+    "done": true,
+    "player": "437217201085164",
+    "stage": {
+        "stage": 2,
+        "step": 1,
+        "round": 2
+    },
+    "timestamp": 1614701971741
+}, {
+    "time": 30003,
+    "timeup": true,
+    "done": true,
+    "player": "437217201085164",
+    "stage": {
+        "stage": 2,
+        "step": 2,
+        "round": 2
+    },
+    "timestamp": 1614702002567
+}, {
+    "time": 30316,
+    "timeup": true,
+    "done": true,
+    "player": "751106790676493",
+    "stage": {
+        "stage": 2,
+        "step": 2,
+        "round": 2
+    },
+    "timestamp": 1614702004331
+}, {
+    "time": 30003,
+    "timeup": true,
+    "estado": 0,
+    "done": true,
+    "player": "751106790676493",
+    "stage": {
+        "stage": 2,
+        "step": 1,
+        "round": 3
+    },
+    "timestamp": 1614702036351
+}, {
+    "time": 30623,
+    "timeup": true,
+    "estado": 0,
+    "done": true,
+    "player": "437217201085164",
+    "stage": {
+        "stage": 2,
+        "step": 1,
+        "round": 3
+    },
+    "timestamp": 1614702036412
+}, {
+    "time": 10094,
+    "timeup": false,
+    "done": true,
+    "player": "751106790676493",
+    "stage": {
+        "stage": 2,
+        "step": 2,
+        "round": 3
+    },
+    "timestamp": 1614702048325
+}, {
+    "time": 9925,
+    "timeup": false,
+    "done": true,
+    "player": "437217201085164",
+    "stage": {
+        "stage": 2,
+        "step": 2,
+        "round": 3
+    },
+    "timestamp": 1614702049572
+}, {
+    "time": 30007,
+    "timeup": true,
+    "estado": 0,
+    "done": true,
+    "player": "437217201085164",
+    "stage": {
+        "stage": 2,
+        "step": 1,
+        "round": 4
+    },
+    "timestamp": 1614702079880
+}, {
+    "time": 30695,
+    "timeup": true,
+    "estado": 0,
+    "done": true,
+    "player": "751106790676493",
+    "stage": {
+        "stage": 2,
+        "step": 1,
+        "round": 4
+    },
+    "timestamp": 1614702081811
+}, {
+    "time": 30007,
+    "timeup": true,
+    "done": true,
+    "player": "751106790676493",
+    "stage": {
+        "stage": 2,
+        "step": 2,
+        "round": 4
+    },
+    "timestamp": 1614702114103
+}, {
+    "time": 30857,
+    "timeup": true,
+    "done": true,
+    "player": "437217201085164",
+    "stage": {
+        "stage": 2,
+        "step": 2,
+        "round": 4
+    },
+    "timestamp": 1614702114574
+}]

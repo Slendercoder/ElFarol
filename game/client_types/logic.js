@@ -96,7 +96,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
           // End for
           // Loop through all connected players.
           node.game.pl.each(function(player) {
-            console.log("Jugador",player.id)
+            console.log("Jugador",player.id);
               // find whether player went to bar
               n = node.game.memory.select('estado').and('player','=',player.id).fetch();
               console.log("n",n);
@@ -136,21 +136,20 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
               node.say('PUNTAJE', player.id, JSON.stringify([rondas,puntaje]));
               node.say('ASISTENCIAS',player.id, JSON.stringify([asistencias,overcrowed,player.id]));
           });
-          node.set({ "rondas_totales": ronda});
         }
     });
 
     stager.extendStep('end', {
       cb: function() {
-        var ronda = node.game.memory.select('rondas_totales').fetch(); // Obtaining round - ERROR, no obtiene las rondas generadas anteriormente
-        console.log("ronda",ronda)
+        var ronda = settings.REPEAT; // Obtaining round - ERROR, no obtiene las rondas generadas anteriormente
+        console.log("ronda",ronda);
         var n = node.game.memory.select('estado').fetch();// Select in the memory the raw data that contains "estado"
         // console.log(n);
          // Obtiene asistencia como lista
-        var groupedByPlayer=groupBy(n, 'player') // Dictionary: Agrupation by player
+        var groupedByPlayer=groupBy(n, 'player'); // Dictionary: Agrupation by player
         var n_jugadores =0;
         for(var player1 in groupedByPlayer){
-          n_jugadores +=1
+          n_jugadores +=1;
          }
         var asistencia = [];
         var p;
@@ -204,12 +203,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
                 }); // End forEach
               }
               //Sum puntaje
-              console.log("Puntaje",puntaje)
-              var sumpuntaje = puntaje.reduce((a, b) => a + b, 0) // summing all the list values of puntajes
-              console.log("sumpuntaje",sumpuntaje)
+              console.log("Puntaje",puntaje);
+              var sumpuntaje = puntaje.reduce((a, b) => a + b, 0); // summing all the list values of puntajes
+              console.log("sumpuntaje",sumpuntaje);
               var dinerototal = 20000 + sumpuntaje*1000 // Payment formula
-              dinerototal = dinerototal.toString()
-              dinerototal.concat(" $")
+              dinerototal = dinerototal.toString();
+              dinerototal.concat(" $");
               console.log("Dinero Total",dinerototal);
               // End fors
               // Get the value saved in the registry, and send it.

@@ -49,7 +49,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     });
 
     stager.extendStep('eleccion', {
-        donebutton: true,
+        donebutton: false,
         frame: 'game.htm',
         cb: function() {
             var boton_ir, boton_quedarse;
@@ -83,11 +83,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             };
 
         },
-				timeup: function() { //Me Parece este codigo no tiene funcionalidad (PREGUNTAR)
-            var decision;
-            // Generate random decision.
-            decision = J.randomInt(-1,1);
-						node.done({ estado: decision });
+		timeup: function() { //Me Parece este codigo no tiene funcionalidad (PREGUNTAR)
+        var decision;
+        // Generate random decision.
+        decision = J.randomInt(-1,1);
+					node.done({ estado: decision });
         }
     });
 
