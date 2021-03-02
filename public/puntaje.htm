@@ -119,7 +119,7 @@ div.checks img{
         // Create the square for the locations and score using RAPHAEL.JS
         // console.log('Raphael intenta crear paper1...');
         var plot = document.getElementById('canvas_container1');
-        var p = new Raphael(document.getElementById('canvas_container2'), 500, 140);
+        var p = new Raphael(document.getElementById('canvas_container2'), 500, 240);
         
         console.log("plot",plot)
         console.log("part2",plot)
@@ -128,7 +128,13 @@ div.checks img{
           console.log("Entro Asistencia");
           p.clear();
           // Converting message to JSON in order to be able to use it as dictionary
-          var asistencias = JSON.parse(msg);
+          var asistencias_json = JSON.parse(msg);
+          var asistencias = asistencias_json[0];
+          var overcrowed = asistencias_json[1];
+          var player_id = asistencias_json[2];
+
+          console.log(overcrowed)
+
           rounds = asistencias[Object.keys(asistencias)[0]].length;
           titles_x = 50;
           titles_y = 50;
@@ -147,11 +153,22 @@ div.checks img{
           shift_player_rect_x = shift_player_name_x+Size_rect/2;
           shift_player_rect_y = shift_player_name_y-Size_rect/2;
 
+          // Cuadricula Jugadores
           n_player = 0;
           for(var player in asistencias){
 
-              var text1 = p.text(shift_player_name_x,shift_player_name_y, n_player+1); // Adding text player
+              if (player == player_id){
+                var usted = ''
+                usted = n_player+1+' (usted)'
+                var text1 = p.text(shift_player_name_x,shift_player_name_y, usted); // Adding text player
               // before calling "player", is the name of player
+              }
+              else{
+                var text1 = p.text(shift_player_name_x,shift_player_name_y, n_player+1); // Adding text player
+              // before calling "player", is the name of player
+              }
+
+
 
               var asistencias_player = asistencias[player];
               var asistenciaslength = asistencias_player.length;
@@ -170,6 +187,7 @@ div.checks img{
 
           }
 
+          // Cuadricula ir - no ir
           p.rect(shift_player_rect_x + 30*(rounds+3),shift_player_rect_y,30,30).attr({fill: "rgb(51,153,255)"});
           p.rect(shift_player_rect_x + 30*(rounds+3),shift_player_rect_y+30,30,30);
 
@@ -177,6 +195,25 @@ div.checks img{
           //.attr({"font-size": "12px","font-weight": "800",});
           p.text(shift_player_rect_x + 30*(rounds+5),titles_y + 10 +Size_rect, "No ir");
           //.attr({"font-size": "12px","font-weight": "800",});
+
+          // Overcrowed
+
+          for (var i = 0; i < rounds; i++) {
+                  var rect = p.rect(shift_player_rect_x + 30*(i+1),shift_player_rect_y+30*(n_player+1),30,30);
+                  if(overcrowed[i]==1){ // If was overcrowed
+                      rect.attr({fill: "rgb(255,51,51)"});
+                  }
+            }
+
+          // Cuadricula Sobrecupo
+          p.rect(shift_player_rect_x + 30*(rounds+3),shift_player_rect_y+30*(n_player+1),30,30).attr({fill: "rgb(255,51,51)"});
+          p.rect(shift_player_rect_x + 30*(rounds+3),shift_player_rect_y+30+30*(n_player+1),30,30);
+
+          p.text(shift_player_rect_x + 30*(rounds+5)+5,shift_player_rect_y+30*(n_player)+titles_y-5, "Sobrecupo");
+          //.attr({"font-size": "12px","font-weight": "800",});
+          p.text(shift_player_rect_x + 30*(rounds+5)+5,shift_player_rect_y+30*(n_player)+titles_y +Size_rect-5, "Adecuado");
+          //.attr({"font-size": "12px","font-weight": "800",});
+
           return
 
 

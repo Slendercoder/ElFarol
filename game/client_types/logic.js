@@ -101,16 +101,22 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
               n = node.game.memory.select('estado').and('player','=',player.id).fetch();
               console.log("n",n);
               // console.log(n);
+              var overcrowed = [];
               var puntaje=[];
               var rondas =[];
               for (var r = 1; r <= ronda; r++) {
-                rondas.unshift(r)
+                rondas.unshift(r);
                 n.forEach((item, i) => {
+                  // Funcion puntaje
                   if (item['stage']['round'] == r) {
-                    // Hacer todas las consideraciones para incluir
-                    // el umbral y sacar el puntaje
                     console.log("Jugador: ",item," ronda: ",r,"Estado:",item['estado'])
                     var umbral = asistencia[n1-r]/n_jugadores
+                    if(umbral <=0.5){ //0.5 is the threshold
+                      overcrowed.unshift(0);
+                    }
+                    else{
+                      overcrowed.unshift(1);
+                    }
                     if (item['estado'] == 1 && umbral <=0.5){
                       puntaje.unshift(1); // unshift append in order
                     }
@@ -128,16 +134,89 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
               // End for
               // Get the value saved in the registry, and send it.
               node.say('PUNTAJE', player.id, JSON.stringify([rondas,puntaje]));
-              node.say('ASISTENCIAS',player.id, JSON.stringify(asistencias));
+              node.say('ASISTENCIAS',player.id, JSON.stringify([asistencias,overcrowed,player.id]));
           });
+          node.set({ "rondas_totales": ronda});
         }
     });
 
     stager.extendStep('end', {
       cb: function() {
+        var ronda = node.game.memory.select('rondas_totales').fetch(); // Obtaining round - ERROR, no obtiene las rondas generadas anteriormente
+        console.log("ronda",ronda)
+        var n = node.game.memory.select('estado').fetch();// Select in the memory the raw data that contains "estado"
+        // console.log(n);
+         // Obtiene asistencia como lista
+        var groupedByPlayer=groupBy(n, 'player') // Dictionary: Agrupation by player
+        var n_jugadores =0;
+        for(var player1 in groupedByPlayer){
+          n_jugadores +=1
+         }
+        var asistencia = [];
+        var p;
+        for (var r = 1; r <= ronda; r++) {
+          p = 0;
+          n.forEach((item, i) => {
+            if (item['stage']['round'] == r) {
+              if (item['estado'] == '1') {
+                p += 1;
+              }
+            }
+          }); // End forEach
+          asistencia.push(p);
+        }
+        var n1 = asistencia.length;
           // Save data in the data/roomXXX directory.
           var numero = node.nodename.slice(node.nodename.length - 4, node.nodename.length);
           var archivo = channel.getGameDir();
+          // printing money -------------------------------------------
+          node.game.pl.each(function(player) {
+              n = node.game.memory.select('estado').and('player','=',player.id).fetch();
+              console.log("n",n);
+              // console.log(n);
+              var overcrowed = [];
+              var puntaje=[];
+              var rondas =[];
+              for (var r = 1; r <= ronda; r++) {
+                rondas.unshift(r);
+                n.forEach((item, i) => {
+                  // Funcion puntaje
+                  if (item['stage']['round'] == r) {
+                    console.log("Jugador: ",item," ronda: ",r,"Estado:",item['estado'])
+                    var umbral = asistencia[n1-r]/n_jugadores
+                    if(umbral <=0.5){ //0.5 is the threshold
+                      overcrowed.unshift(0);
+                    }
+                    else{
+                      overcrowed.unshift(1);
+                    }
+                    if (item['estado'] == 1 && umbral <=0.5){
+                      puntaje.unshift(1); // unshift append in order
+                    }
+                    else if (item['estado'] == 1 && umbral >0.5){
+                      puntaje.unshift(-1);
+                    }
+                    else {
+                      puntaje.unshift(0);
+                    }
+
+                  }
+                }); // End forEach
+              }
+              //Sum puntaje
+              console.log("Puntaje",puntaje)
+              var sumpuntaje = puntaje.reduce((a, b) => a + b, 0) // summing all the list values of puntajes
+              console.log("sumpuntaje",sumpuntaje)
+              var dinerototal = 20000 + sumpuntaje*1000 // Payment formula
+              dinerototal = dinerototal.toString()
+              dinerototal.concat(" $")
+              console.log("Dinero Total",dinerototal);
+              // End fors
+              // Get the value saved in the registry, and send it.
+              node.say('SUMPUNTAJE', player.id, dinerototal);
+          });
+
+          // printing money -------------------------------------------
           archivo += '/data/' + node.nodename;
           archivo += '/data_' + numero + '.json';
           node.game.memory.save(archivo);

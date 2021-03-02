@@ -114,6 +114,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         donebutton: false,
         frame: 'end.htm',
         cb: function() {
+            node.on.data('SUMPUNTAJE', function(msg){
+                W.setInnerHTML('canvas_containerp', msg.data);
+                //node.emit('sumScore', msg.data);
+              });
+
             node.game.visualTimer.setToZero();
         }
     });

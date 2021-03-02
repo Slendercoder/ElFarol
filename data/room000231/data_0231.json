@@ -1,0 +1,185 @@
+[{
+    "time": 1382,
+    "timeup": false,
+    "estado": 1,
+    "done": true,
+    "player": "660364587456697",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 1
+    },
+    "timestamp": 1614654799114
+}, {
+    "time": 2194,
+    "timeup": false,
+    "estado": 0,
+    "done": true,
+    "player": "750338045722845",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 1
+    },
+    "timestamp": 1614654799937
+}, {
+    "time": 2233,
+    "timeup": false,
+    "done": true,
+    "player": "750338045722845",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 1
+    },
+    "timestamp": 1614654803113
+}, {
+    "time": 2747,
+    "timeup": false,
+    "done": true,
+    "player": "660364587456697",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 1
+    },
+    "timestamp": 1614654803826
+}, {
+    "time": 688,
+    "timeup": false,
+    "estado": 1,
+    "done": true,
+    "player": "660364587456697",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 2
+    },
+    "timestamp": 1614654804744
+}, {
+    "time": 783,
+    "timeup": false,
+    "estado": 0,
+    "done": true,
+    "player": "750338045722845",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 2
+    },
+    "timestamp": 1614654805632
+}, {
+    "time": 2485,
+    "timeup": false,
+    "done": true,
+    "player": "750338045722845",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 2
+    },
+    "timestamp": 1614654808752
+}, {
+    "time": 3475,
+    "timeup": false,
+    "done": true,
+    "player": "660364587456697",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 2
+    },
+    "timestamp": 1614654810288
+}, {
+    "time": 594,
+    "timeup": false,
+    "estado": 1,
+    "done": true,
+    "player": "750338045722845",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 3
+    },
+    "timestamp": 1614654811344
+}, {
+    "time": 1812,
+    "timeup": false,
+    "estado": 0,
+    "done": true,
+    "player": "660364587456697",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 3
+    },
+    "timestamp": 1614654812368
+}, {
+    "time": 2081,
+    "timeup": false,
+    "done": true,
+    "player": "660364587456697",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 3
+    },
+    "timestamp": 1614654815139
+}, {
+    "time": 2972,
+    "timeup": false,
+    "done": true,
+    "player": "750338045722845",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 3
+    },
+    "timestamp": 1614654816560
+}, {
+    "time": 704,
+    "timeup": false,
+    "estado": 1,
+    "done": true,
+    "player": "750338045722845",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 4
+    },
+    "timestamp": 1614654817489
+}, {
+    "time": 965,
+    "timeup": false,
+    "estado": 0,
+    "done": true,
+    "player": "660364587456697",
+    "stage": {
+        "stage": 1,
+        "step": 1,
+        "round": 4
+    },
+    "timestamp": 1614654818560
+}, {
+    "time": 1994,
+    "timeup": false,
+    "done": true,
+    "player": "660364587456697",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 4
+    },
+    "timestamp": 1614654821248
+}, {
+    "time": 3200,
+    "timeup": false,
+    "done": true,
+    "player": "750338045722845",
+    "stage": {
+        "stage": 1,
+        "step": 2,
+        "round": 4
+    },
+    "timestamp": 1614654823017
+}]
