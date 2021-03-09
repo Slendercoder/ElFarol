@@ -131,6 +131,9 @@ div.checks img{
           var asistencias = asistencias_json[0];
           var overcrowed = asistencias_json[1];
           var player_id = asistencias_json[2];
+          var treat = asistencias_json[3];
+
+          if(treat==true){
 
           console.log(overcrowed)
 
@@ -214,7 +217,10 @@ div.checks img{
           //.attr({"font-size": "12px","font-weight": "800",});
 
           return
-
+        }// rejilla == True
+        else{
+          p.text(50,50,"No puede ver")
+        }
 
         };
         // ---------------------------------- GRAFICA DE ASISTENCIA -------------------------------------------- //

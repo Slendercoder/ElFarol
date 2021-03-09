@@ -123,6 +123,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('puntaje', {
         cb: function() {
+          var treat = node.game.settings.REJILLA
           var ronda = node.player.stage.round;
           console.log('Puntaje ronda ' + ronda + '...');
 					var n_players = node.game.pl.pcounter;
@@ -142,7 +143,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 								rondas.push(r);
 							}
               node.say('PUNTAJE', player.id, JSON.stringify([rondas,puntaje]));
-              node.say('ASISTENCIAS',player.id, JSON.stringify([asistencias,overcrowed,player.id]));
+              node.say('ASISTENCIAS',player.id, JSON.stringify([asistencias,overcrowed,player.id,treat]));
           });
         }
     });

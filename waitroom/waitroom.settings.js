@@ -32,7 +32,7 @@ module.exports = {
      *
      * The size of each group dispatched by the waiting room
      */
-    GROUP_SIZE: 5,
+    GROUP_SIZE: 2,
 
     /**
      * ## POOL_SIZE (number) Optional
@@ -94,9 +94,7 @@ module.exports = {
      *
      * Default: undefined, random treatment
      */
-    CHOSEN_TREATMENT: function(treatments, roomCounter) {
-        return treatments[roomCounter % treatments.length];
-    },
+    CHOSEN_TREATMENT: "treatment_random", // Asociado a cada grupo
 
     /**
      * ## PLAYER_SORTING
