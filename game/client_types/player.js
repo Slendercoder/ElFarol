@@ -32,9 +32,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
         // Add widgets.
         this.visualRound = node.widgets.append('VisualRound', header);
-
         this.visualTimer = node.widgets.append('VisualTimer', header);
-
         this.doneButton = node.widgets.append('DoneButton', header);
 
         // Additional debug information while developing the game.
@@ -71,6 +69,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
 		stager.extendStep('pagos', {
         frame: 'pagos.htm',
+				cb: function() {
+					node.on.data('pagos', function(msg){
+						var pago = Number(msg.data)/1000;
+						W.setInnerHTML('pago', pago);
+					});
+				}
     });
 
     stager.extendStep('eleccion', {
@@ -143,7 +147,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         frame: 'end.htm',
         cb: function() {
             node.on.data('SUMPUNTAJE', function(msg){
-                W.setInnerHTML('canvas_containerp', msg.data);
+							W.setInnerHTML('canvas_container_puntaje', msg.data[0]);
+							W.setInnerHTML('canvas_container_dinero_puntaje', msg.data[1]);
+							W.setInnerHTML('canvas_container_dinero_total', msg.data[2]);
                 //node.emit('sumScore', msg.data);
               });
 

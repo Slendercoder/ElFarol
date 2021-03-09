@@ -34,24 +34,24 @@ module.exports = {
 			eleccion: 30000,
 			puntaje: 30000
     },
-    
-    treatments:{
-        rejilla:{
-            description: 'Puede ver rejilla',
-            treatmentName: "rejilla_treatment",
-            REJILLA: true
-        },
-        norejilla:{
-            description: 'No puede ver rejilla',
-            treatmentName: "norejilla_treatment",
-            REJILLA:false
-        }
-    },
+
+    // treatments:{
+    //     rejilla:{
+    //         description: 'Puede ver rejilla',
+    //         treatmentName: "rejilla_treatment",
+    //         REJILLA: true
+    //     },
+    //     norejilla:{
+    //         description: 'No puede ver rejilla',
+    //         treatmentName: "norejilla_treatment",
+    //         REJILLA:false
+    //     }
+    // },
 
     // # Game specific properties
 
     // Number of game rounds repetitions.
-    REPEAT: 20,
-		INFORMACION: true
-
+    REPEAT: 60,
+		REJILLA: true,
+		PAGO: 1500
 };

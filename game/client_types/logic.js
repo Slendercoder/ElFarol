@@ -94,7 +94,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
             console.log('Instrucciones...');
 						var n_players = node.game.pl.pcounter;
 						node.game.pl.each(function(player) {
-							node.say('Nplayers', player.id, [n_players, settings.REPEAT, settings.INFORMACION, settings.TIMER.eleccion]);
+							node.say('Nplayers', player.id, [n_players, settings.REPEAT, settings.REJILLA, settings.TIMER.eleccion]);
 						});
         }
     });
@@ -102,6 +102,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 		stager.extendStep('pagos', {
         cb: function() {
             console.log('Pagos...');
+						node.game.pl.each(function(player) {
+							node.say('pagos', player.id, settings.PAGO);
+						});
         }
     });
 
@@ -123,7 +126,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('puntaje', {
         cb: function() {
-          var treat = node.game.settings.REJILLA
+					var treat = settings.REJILLA;
+          // var treat = node.game.settings.REJILLA;
           var ronda = node.player.stage.round;
           console.log('Puntaje ronda ' + ronda + '...');
 					var n_players = node.game.pl.pcounter;
@@ -162,14 +166,14 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
           //Sum puntaje
           var sumpuntaje = puntaje.reduce((a, b) => a + b, 0); // summing all the list values of puntajes
           // console.log("sumpuntaje",sumpuntaje);
-          var dinerototal = sumpuntaje*500; // Payment formula
-          dinerototal = Math.max(0,dinerototal) +10000;
+          var dineropuntaje = Math.max(0,sumpuntaje*settings.PAGO); // Payment formula
+          var dinerototal = dineropuntaje + 10000;
           dinerototal = dinerototal.toString();
           dinerototal.concat(" $");
           // console.log("Dinero Total",dinerototal);
           // End fors
           // Get the value saved in the registry, and send it.
-          node.say('SUMPUNTAJE', player.id, dinerototal);
+          node.say('SUMPUNTAJE', player.id, [sumpuntaje, dineropuntaje, dinerototal]);
           });
 
 					// Save data in the data/roomXXX directory.

@@ -84,12 +84,12 @@ div.checks img{
 
     <div class="column middle" style="padding-left: 0px; padding-top: 0px;">
         <div id="puntAcum1">
-            <h3> Su desempeño en las últimas 20 rondas ha sido así:</h3>
+            <h3> Su desempeño en las últimas 15 rondas ha sido así:</h3>
             <!-- Su desempeño total ha sido así: -->
             <span id="canvas_container1" style="width: auto;height: 250px;"></span>
         </div>
         <div id="puntAcum2">
-          <h3> La asistencia al bar ha sido así:</h3>
+          <h3> La asistencia al bar en las últimas 15 rondas ha sido así:</h3>
           <!-- La asistencia al ha sido así:  -->
           <span id="canvas_container2"></span>
         </div>
@@ -109,7 +109,7 @@ div.checks img{
   <script type="text/javascript" language="javascript">
   document.addEventListener('DOMContentLoaded', (event) => {
     window.onload = function() {
-      
+
 
         if ('undefined' !== typeof window.paper) return;
         var node = parent.node;
@@ -118,122 +118,132 @@ div.checks img{
         // Create the square for the locations and score using RAPHAEL.JS
         // console.log('Raphael intenta crear paper1...');
         var plot = document.getElementById('canvas_container1');
-        var p = new Raphael(document.getElementById('canvas_container2'), 500, 300);
-        
-        console.log("plot",plot)
-        console.log("part2",plot)
+        var p = new Raphael(document.getElementById('canvas_container2'), 800, 300);
+				var plot2 = document.getElementById('puntAcum2');
+
+        // console.log("plot",plot);
+        // console.log("part2",plot);
         // ---------------------------------- GRAFICA DE ASISTENCIA -------------------------------------------- //
         window.drawAsistencia = function(msg) {
-          console.log("Entro Asistencia");
-          p.clear();
-          // Converting message to JSON in order to be able to use it as dictionary
-          var asistencias_json = JSON.parse(msg);
-          var asistencias = asistencias_json[0];
-          var overcrowed = asistencias_json[1];
-          var player_id = asistencias_json[2];
-          var treat = asistencias_json[3];
 
-          if(treat==true){
+					var asistencias_json = JSON.parse(msg);
+					var treat = asistencias_json[3];
 
-          console.log(overcrowed)
+					if(treat==true){
+						// plot2.style.visibility='visible';
+	          // console.log("Entro Asistencia");
+	          p.clear();
+	          // Converting message to JSON in order to be able to use it as dictionary
+	          var asistencias = asistencias_json[0];
+	          var overcrowded = asistencias_json[1];
+	          var player_id = asistencias_json[2];
 
-          rounds = asistencias[Object.keys(asistencias)[0]].length;
-          titles_x = 50;
-          titles_y = 50;
+	          // console.log(overcrowded)
+	          rounds = asistencias[Object.keys(asistencias)[0]].length;
+						if (rounds > 15) {
+							rounds = 15;
+						}
+	          titles_x = 50;
+	          titles_y = 50;
+	          Size_rect = 30;
 
-          Size_rect = 30;
+	          // Title Jugadores
+	          p.text(titles_x,titles_y-30, "Jugadores");
+	          //         .attr({"font-size": "12px","font-weight": "800",});
+	          // Title Rondas
+	          p.text(titles_x+60+(rounds-1)*Size_rect/2,titles_y-30, "Rondas");
+	          //         .attr({"font-size": "12px","font-weight": "800",});
 
-          // Title Jugadores
-          p.text(titles_x,titles_y-30, "Jugadores");
-          //         .attr({"font-size": "12px","font-weight": "800",});
-          // Title Rondas
-          p.text(titles_x+60+(rounds-1)*Size_rect/2,titles_y-30, "Rondas");
-          //         .attr({"font-size": "12px","font-weight": "800",});
+	          shift_player_name_x = titles_x;
+	          shift_player_name_y = titles_y + 10;
+	          shift_player_rect_x = shift_player_name_x+Size_rect/2;
+	          shift_player_rect_y = shift_player_name_y-Size_rect/2;
 
-          shift_player_name_x = titles_x;
-          shift_player_name_y = titles_y + 10;
-          shift_player_rect_x = shift_player_name_x+Size_rect/2;
-          shift_player_rect_y = shift_player_name_y-Size_rect/2;
+	          // Cuadricula Jugadores
+	          n_player = 0;
+	          for(var player in asistencias){
 
-          // Cuadricula Jugadores
-          n_player = 0;
-          for(var player in asistencias){
+	              if (player == player_id){
+	                var usted = '';
+	                usted = n_player+1+' (usted)';
+	                var text1 = p.text(shift_player_name_x,shift_player_name_y, usted); // Adding text player
+	              // before calling "player", is the name of player
+	              }
+	              else{
+	                var text1 = p.text(shift_player_name_x,shift_player_name_y, n_player+1); // Adding text player
+	              // before calling "player", is the name of player
+	              }
+	              var asistencias_player = asistencias[player];
+								// Uses only the last 15 rounds to draw the attendance
+								if (asistencias_player.length > 15) {
+										asistencias_player = asistencias_player.slice(asistencias_player.length - 15, asistencias_player.length);
+								}
+	              var asistenciaslength = asistencias_player.length;
+	              for (var i = 0; i < asistenciaslength; i++) {
+	                  var rect = p.rect(shift_player_rect_x + 30*(i+1),shift_player_rect_y+30*(n_player),30,30);
+	                  if(asistencias_player[i]==1){ // If in the rond 1 it went
+	                      rect.attr({fill: "rgb(51,153,255)"});
+	                  }
+	              }
+	              shift_player_name_y = shift_player_name_y +Size_rect;
+	              n_player = n_player +1;
+	          }
 
-              if (player == player_id){
-                var usted = ''
-                usted = n_player+1+' (usted)'
-                var text1 = p.text(shift_player_name_x,shift_player_name_y, usted); // Adding text player
-              // before calling "player", is the name of player
-              }
-              else{
-                var text1 = p.text(shift_player_name_x,shift_player_name_y, n_player+1); // Adding text player
-              // before calling "player", is the name of player
-              }
+	          // Cuadricula ir - no ir
+	          p.rect(shift_player_rect_x + 30*(rounds+3),shift_player_rect_y,30,30).attr({fill: "rgb(51,153,255)"});
+	          p.rect(shift_player_rect_x + 30*(rounds+3),shift_player_rect_y+30,30,30);
 
+	          p.text(shift_player_rect_x + 30*(rounds+5),titles_y + 10, "Ir");
+	          //.attr({"font-size": "12px","font-weight": "800",});
+	          p.text(shift_player_rect_x + 30*(rounds+5),titles_y + 10 +Size_rect, "No ir");
+	          //.attr({"font-size": "12px","font-weight": "800",});
 
+	          // overcrowded
+						// Uses only the last 15 rounds to draw the overcrowded bar
+						if (overcrowded.length > 15) {
+								overcrowded = overcrowded.slice(overcrowded.length - 15, overcrowded.length);
+						}
+	          for (var i = 0; i < rounds; i++) {
+	                  var rect = p.rect(shift_player_rect_x + 30*(i+1),shift_player_rect_y+30*(n_player+1),30,30);
+	                  if(overcrowded[i]==1){ // If was overcrowded
+	                      rect.attr({fill: "rgb(255,51,51)"});
+	                  }
+	            }
 
-              var asistencias_player = asistencias[player];
-              var asistenciaslength = asistencias_player.length;
+	          // Cuadricula Sobrecupo
+	          p.rect(shift_player_rect_x + 30*(rounds+3),shift_player_rect_y+30*(n_player+1),30,30).attr({fill: "rgb(255,51,51)"});
+	          p.rect(shift_player_rect_x + 30*(rounds+3),shift_player_rect_y+30+30*(n_player+1),30,30);
 
-              for (var i = 0; i < asistenciaslength; i++) {
-                  var rect = p.rect(shift_player_rect_x + 30*(i+1),shift_player_rect_y+30*(n_player),30,30);
-                  if(asistencias_player[i]==1){ // If in the rond 1 it went
-                      rect.attr({fill: "rgb(51,153,255)"});
-                  }
+	          p.text(shift_player_rect_x + 30*(rounds+5)+5,shift_player_rect_y+30*(n_player)+titles_y-5, "Sobrecupo");
+	          //.attr({"font-size": "12px","font-weight": "800",});
+	          p.text(shift_player_rect_x + 30*(rounds+5)+5,shift_player_rect_y+30*(n_player)+titles_y +Size_rect-5, "Adecuado");
+	          //.attr({"font-size": "12px","font-weight": "800",});
 
-              }
-
-              shift_player_name_y = shift_player_name_y +Size_rect;
-
-              n_player = n_player +1;
-
-          }
-
-          // Cuadricula ir - no ir
-          p.rect(shift_player_rect_x + 30*(rounds+3),shift_player_rect_y,30,30).attr({fill: "rgb(51,153,255)"});
-          p.rect(shift_player_rect_x + 30*(rounds+3),shift_player_rect_y+30,30,30);
-
-          p.text(shift_player_rect_x + 30*(rounds+5),titles_y + 10, "Ir");
-          //.attr({"font-size": "12px","font-weight": "800",});
-          p.text(shift_player_rect_x + 30*(rounds+5),titles_y + 10 +Size_rect, "No ir");
-          //.attr({"font-size": "12px","font-weight": "800",});
-
-          // Overcrowed
-
-          for (var i = 0; i < rounds; i++) {
-                  var rect = p.rect(shift_player_rect_x + 30*(i+1),shift_player_rect_y+30*(n_player+1),30,30);
-                  if(overcrowed[i]==1){ // If was overcrowed
-                      rect.attr({fill: "rgb(255,51,51)"});
-                  }
-            }
-
-          // Cuadricula Sobrecupo
-          p.rect(shift_player_rect_x + 30*(rounds+3),shift_player_rect_y+30*(n_player+1),30,30).attr({fill: "rgb(255,51,51)"});
-          p.rect(shift_player_rect_x + 30*(rounds+3),shift_player_rect_y+30+30*(n_player+1),30,30);
-
-          p.text(shift_player_rect_x + 30*(rounds+5)+5,shift_player_rect_y+30*(n_player)+titles_y-5, "Sobrecupo");
-          //.attr({"font-size": "12px","font-weight": "800",});
-          p.text(shift_player_rect_x + 30*(rounds+5)+5,shift_player_rect_y+30*(n_player)+titles_y +Size_rect-5, "Adecuado");
-          //.attr({"font-size": "12px","font-weight": "800",});
-
-          return
-        }// rejilla == True
-        else{
-          p.text(50,50,"No puede ver")
-        }
-
+	          return
+	        }// rejilla == True
+	        else{
+						plot2.style.visibility='hidden';
+	          p.text(50,50,"No puede ver");
+	        }
         };
-        // ---------------------------------- GRAFICA DE ASISTENCIA -------------------------------------------- //
+        // ---------------------------------- GRAFICA DE PUNTAJE -------------------------------------------- //
         window.drawScore = function(msg) {
           console.log("Draw Score Fucntion")
 
             var puntajes_json = JSON.parse(msg);
-            console.log("JSON Puntajes",puntajes_json);
+            // console.log("JSON Puntajes",puntajes_json);
             var rondas = puntajes_json[0];
             var puntajes = puntajes_json[1];
+            // console.log("rondas",rondas);
+            // console.log("puntajes",puntajes);
 
-            console.log("rondas",rondas);
-            console.log("puntajes",puntajes);
+						// Uses only the last 15 rounds to draw the score
+						if (rondas.length > 15) {
+                rondas = rondas.slice(rondas.length - 15, rondas.length);
+            }
+						if (puntajes.length > 15) {
+                puntajes = puntajes.slice(puntajes.length - 15, puntajes.length);
+            }
 
             var trace1 = {
             x: rondas,
@@ -243,7 +253,7 @@ div.checks img{
             type: 'scatter'
             };
             var data = [trace1];
-            
+
             var layout = {
             xaxis: {
                 title: 'Rondas',
@@ -260,14 +270,14 @@ div.checks img{
             },
         };
 
-        Plotly.newPlot(plot, data,layout); 
+        Plotly.newPlot(plot, data,layout);
 
         return
         };
 
         // Draws accumulated score
         node.events.game.on('drawScore', window.drawScore);
-        node.events.game.on('drawAsistencia', window.drawAsistencia)
+        node.events.game.on('drawAsistencia', window.drawAsistencia);
 
     } // end onload function
   })
