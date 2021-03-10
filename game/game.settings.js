@@ -32,7 +32,7 @@ module.exports = {
 			instructions: 180000,
 			pagos: 60000,
 			eleccion: 30000,
-			puntaje: 30000
+				puntaje: 30000
 			// eleccion: 1000,
 			// puntaje: 1000
     },
