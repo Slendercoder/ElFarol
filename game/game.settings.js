@@ -51,7 +51,7 @@ module.exports = {
     // # Game specific properties
 
     // Number of game rounds repetitions.
-    REPEAT: 60,
+    REPEAT: 50,
 		REJILLA: true,
 		PAGO: 1500
 };
