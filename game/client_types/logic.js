@@ -174,12 +174,18 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
           // End fors
           // Get the value saved in the registry, and send it.
           node.say('SUMPUNTAJE', player.id, [sumpuntaje, dineropuntaje, dinerototal]);
-          });
-
+					// Include payment data
+					node.game.memory.add({
+					    player: player.id,
+					    stage: { stage: 4},
+					    recompensa: dinerototal
+					});
+				});
 					// Save data in the data/roomXXX directory.
           var numero = node.nodename.slice(node.nodename.length - 4, node.nodename.length);
           var archivo = channel.getGameDir();
-          archivo += '/data/' + node.nodename;
+					// archivo += '/data/' + node.nodename;
+					archivo += '/data';
           archivo += '/data_' + numero + '.json';
           node.game.memory.save(archivo);
           console.log('Data saved to ' + archivo);
