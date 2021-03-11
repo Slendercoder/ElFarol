@@ -93,8 +93,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
             console.log('Instrucciones...');
 						var n_players = node.game.pl.pcounter;
+						var umbral = settings.THRESHOLD;
+						var threshold = Math.floor(threshold*n_players);
 						node.game.pl.each(function(player) {
-							node.say('Nplayers', player.id, [n_players, settings.REPEAT, settings.REJILLA, settings.TIMER.eleccion]);
+							node.say('Nplayers', player.id, [n_players, threshold, settings.REPEAT, settings.REJILLA, settings.TIMER.eleccion]);
 						});
         }
     });
@@ -127,14 +129,14 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
     stager.extendStep('puntaje', {
         cb: function() {
 					var treat = settings.REJILLA;
-          // var treat = node.game.settings.REJILLA;
           var ronda = node.player.stage.round;
           console.log('Puntaje ronda ' + ronda + '...');
 					var n_players = node.game.pl.pcounter;
           var n = node.game.memory.select('estado').fetch();// Select in the memory the raw data that contains "estado"
 					var asistencia = findAttendance(n,ronda);
 					// console.log('Asistencia al bar', asistencia);
-					var overcrowed = findOvercrowded(asistencia,0.5*n_players,ronda);
+					var umbral = settings.THRESHOLD;
+					var overcrowed = findOvercrowded(asistencia,umbral*n_players,ronda);
 					// console.log('Sobrecupo del bar', overcrowed);
 					var asistencias = findPlAttendances(n);
           node.game.pl.each(function(player) {

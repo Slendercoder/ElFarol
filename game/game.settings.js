@@ -32,7 +32,7 @@ module.exports = {
 			instructions: 180000,
 			pagos: 60000,
 			eleccion: 30000,
-				puntaje: 30000
+			puntaje: 30000
 			// eleccion: 1000,
 			// puntaje: 1000
     },
@@ -52,8 +52,12 @@ module.exports = {
 
     // # Game specific properties
 
+		// Determines the threshold for overcrowed bar
+		THRESHOLD: .6,
     // Number of game rounds repetitions.
     REPEAT: 50,
+		// Whether to show attendance information to players or not
 		REJILLA: true,
+		// How much is each earned point worth
 		PAGO: 1500
 };

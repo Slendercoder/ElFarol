@@ -45,10 +45,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 				cb: function() {
 					node.on.data('Nplayers', function(msg){
 						var n_jugadores = msg.data[0];
-						var umbral = Math.floor(Number(msg.data[0])/2);
-						var rondas = msg.data[1];
-						var informacion = msg.data[2];
-						var segundos = Math.floor(Number(msg.data[3])/1000);
+						var umbral = msg.data[1];
+						var rondas = msg.data[2];
+						var informacion = msg.data[3];
+						var segundos = Math.floor(Number(msg.data[4])/1000);
 						W.setInnerHTML('personas', n_jugadores);
 						W.setInnerHTML('umbral1', umbral);
 						W.setInnerHTML('umbral2', umbral);
