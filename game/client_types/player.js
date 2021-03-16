@@ -39,6 +39,35 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // this.debugInfo = node.widgets.append('DebugInfo', header)
     });
 
+		stager.extendStep('consentimiento', {
+        frame: 'consentimiento.htm',
+				donebutton: false,
+				cb: function() {
+
+					var check_box = W.gid('entendi'); // Checkbox
+					var boton_done = W.gid('continuar'); // Continue Boton
+					var texto_nombres = W.gid('nombres'); // Text for name
+					var texto_cedula = W.gid('cedula'); // Text for id no.
+					var me = node.player.id; // Player's id
+
+					boton_done.style.display = "none";
+
+					check_box.onclick = function() {
+						// If the checkbox is checked, display the output text
+				    if (check_box.checked == true){
+				      boton_done.style.display = "block";
+				    } else {
+				      boton_done.style.display = "none";
+				    }
+					};
+					boton_done.onclick = function() {
+						node.done( { player:me,
+												 nombre:texto_nombres.value,
+												 cedula:texto_cedula.value } );
+					};
+				}
+    });
+
     stager.extendStep('instructions', {
         frame: 'instructions.htm',
 				donebutton: false,

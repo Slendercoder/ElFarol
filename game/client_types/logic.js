@@ -89,12 +89,18 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         // Initialize the client.
     });
 
+		stager.extendStep('consentimiento', {
+        cb: function() {
+            console.log('Consentimiento Informado...');
+        }
+    });
+
     stager.extendStep('instructions', {
         cb: function() {
             console.log('Instrucciones...');
 						var n_players = node.game.pl.pcounter;
 						var umbral = settings.THRESHOLD;
-						var threshold = Math.floor(threshold*n_players);
+						var threshold = Math.floor(umbral*n_players);
 						node.game.pl.each(function(player) {
 							node.say('Nplayers', player.id, [n_players, threshold, settings.REPEAT, settings.REJILLA, settings.TIMER.eleccion]);
 						});

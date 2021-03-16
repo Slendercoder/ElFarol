@@ -12,6 +12,7 @@
 module.exports = function(stager, settings) {
 
      stager // Stager define a sequence of steps on that particular stage
+			 .next('consentimiento')
 			 .next('instructions')
 			 .next('pagos')
         .repeat('game', settings.REPEAT) // Repeat as the settings was passed on the function
@@ -26,6 +27,7 @@ module.exports = function(stager, settings) {
           });
 
     // Modify the stager to skip one stage.
+		// stager.skip('consentimiento');
 		// stager.skip('instructions');
 		// stager.skip('pagos');
 
