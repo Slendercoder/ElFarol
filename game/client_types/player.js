@@ -102,6 +102,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 					node.on.data('pagos', function(msg){
 						var pago = Number(msg.data)/1000;
 						W.setInnerHTML('pago', pago);
+						W.setInnerHTML('ume', msg.data);
 					});
 				}
     });
