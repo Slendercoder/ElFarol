@@ -16,12 +16,20 @@ module.exports = function(settings, stages) {
     var setup;
     setup = {};
 
-    setup.debug = true;
+		// setup.debug = true;
+		setup.debug = false;
 
-    setup.verbosity = 1;
+		// setup.verbosity = 1;
+		setup.verbosity = 0;
 
     setup.window = {
-        promptOnleave: !setup.debug
+			// Block right-clicking.
+	    disableRightClick: true,
+	    // Display a message if a user tries to close the browser.
+	    promptOnleave: true,
+	    // Disable the back button.
+	    disableBackButton: true
+			// promptOnleave: !setup.debug
     };
 
     // Metadata.

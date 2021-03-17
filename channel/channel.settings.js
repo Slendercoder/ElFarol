@@ -111,7 +111,7 @@ module.exports = {
     notify: {
 
         // When a player connects / disconnects.
-        onConnect: false,
+        onConnect: true,
 
         // When a player changes a stage / step.
         onStageUpdate: false,
@@ -186,7 +186,7 @@ module.exports = {
      *
      * Default: TRUE
      */
-    // sioQuery: false,
+    sioQuery: false,
 
     /**
      * ### defaultChannel (boolean) Optional
@@ -269,7 +269,7 @@ module.exports = {
      *
      * Default: FALSE
      */
-    // logClients: true,
+    logClients: true,
 
     /**
      * ## logClientsExtra
@@ -278,10 +278,10 @@ module.exports = {
      *
      * Default: undefined
      */
-    // logClientsExtra: function(p) {
-    //     return [ p.WorkerId || 'NA', p.HITId || 'NA',
-    //              p.AssignmentId || 'NA', p.ExitCode || 'NA' ];
-    // },
+    logClientsExtra: function(p) {
+        return [ p.WorkerId || 'NA', p.HITId || 'NA',
+                 p.AssignmentId || 'NA', p.ExitCode || 'NA' ];
+    },
 
     /**
     * ## logClientsInterval
