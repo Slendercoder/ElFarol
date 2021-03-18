@@ -111,8 +111,14 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
             console.log('Pagos...');
 						node.game.pl.each(function(player) {
-							node.say('pagos', player.id, settings.PAGO);
+							node.say('pagos', player.id, [settings.SHOWUP, settings.PAGO]);
 						});
+        }
+    });
+
+		stager.extendStep('pantalla', {
+        cb: function() {
+            console.log('Pantalla...');
         }
     });
 
@@ -162,11 +168,12 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
     stager.extendStep('end', {
       cb: function() {
-        var ronda = settings.REPEAT; // Obtaining round - ERROR, no obtiene las rondas generadas anteriormente
+        var ronda = settings.REPEAT; // Obtaining round
 				var n_players = node.game.pl.pcounter;
 				var n = node.game.memory.select('estado').fetch();// Select in the memory the raw data that contains "estado"
 				var asistencia = findAttendance(n,ronda);
-				var overcrowed = findOvercrowded(asistencia,0.5*n_players,ronda);
+				var umbral = settings.THRESHOLD;
+				var overcrowed = findOvercrowded(asistencia,umbral*n_players,ronda);
 				var asistencias = findPlAttendances(n);
         node.game.pl.each(function(player) {
 					var players_attendance = asistencias[player.id];
@@ -179,14 +186,16 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
           dinerototal = dinerototal.toString();
           dinerototal.concat(" $");
           // console.log("Dinero Total",dinerototal);
-          // End fors
+					// Create random identifier: one letter plus three numbers
+					var codigo = J.randomString(1, 'A').concat(J.randomString(3, '1'));
           // Get the value saved in the registry, and send it.
-          node.say('SUMPUNTAJE', player.id, [sumpuntaje, dineropuntaje, dinerototal]);
+          node.say('SUMPUNTAJE', player.id, [sumpuntaje, dineropuntaje, dinerototal, settings.SHOWUP, codigo]);
 					// Include payment data
 					node.game.memory.add({
 					    player: player.id,
-					    stage: { stage: 4},
-					    recompensa: dinerototal
+							codigo: codigo,
+					    stage: { stage: 5},
+					    recompensa: dinerototal,
 					});
 				});
 					// Save data in the data/roomXXX directory.

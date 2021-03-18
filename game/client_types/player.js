@@ -100,10 +100,20 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         frame: 'pagos.htm',
 				cb: function() {
 					node.on.data('pagos', function(msg){
-						var pago = Number(msg.data)/1000;
-						W.setInnerHTML('pago', pago);
-						W.setInnerHTML('ume', msg.data);
+						// Showup fee
+						var showup = Number(msg.data[0])/1000;
+						W.setInnerHTML('showup', showup);
+						// Pago por ronda
+						var pago = Number(msg.data[1])/1000;
+						W.setInnerHTML('pago1', pago);
+						W.setInnerHTML('pago2', pago);
 					});
+				}
+    });
+
+		stager.extendStep('pantalla', {
+        frame: 'pantalla.htm',
+				cb: function() {
 				}
     });
 
@@ -180,7 +190,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 							W.setInnerHTML('canvas_container_puntaje', msg.data[0]);
 							W.setInnerHTML('canvas_container_dinero_puntaje', msg.data[1]);
 							W.setInnerHTML('canvas_container_dinero_total', msg.data[2]);
-                //node.emit('sumScore', msg.data);
+							W.setInnerHTML('showup', msg.data[3]);
+							W.setInnerHTML('codigo', msg.data[4]);
               });
 
             node.game.visualTimer.setToZero();

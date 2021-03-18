@@ -13,45 +13,45 @@
     display: inline-block;
     font-size: 16px;
 }
-
 </style>
 <body>
-  <div id="container">
+  <div id="container" style="overflow-y: scroll;">
     <h1>Instrucciones para el juego del Bar "El Farol"</h1>
     <h3>¡Por favor léalas cuidadosamente!</h3>
     <div id="instructions">
       <br>
-      En este juego participan <span id="personas"></span> personas, incluyéndolo a usted. En cada ronda, usted dispone de <span id='segundos1'></span> segundos para elegir si <em>ir al bar "El Farol"</em> o <em>quedarse en casa</em>.
+      En este juego participan <span id="personas"></span> personas, incluyéndolo a usted, y serán las mismas durante todas las rondas.
+			<br><br>
+			En cada ronda, usted dispone de <span id='segundos1'></span> segundos para elegir si <em>ir al bar "El Farol"</em> o <em>quedarse en casa</em>.
       <br><br>
-        <div align="center">
-            <div style="float: left">
-                <img src="./imagenes/ElFarol.jpeg" alt="Bar El Farol" width="auto" height="200">
-                <p>Ir al bar</p>
-            </div>
-            <div style="float: right; margin-right: 100ptx">
-                <img src="./imagenes/stay_home.jpeg" alt="Bar El Farol" width="auto"   height="200">
-                <p>Quedarse en casa</p>
-            </div>
-            <div style="clear: both"></div>
-        </div>
-        <br>
-        Si <span id="umbral1"></span> o menos jugadores deciden ir al bar, la experiencia será agradable para ellos. Aquí cada jugador que haya asistido obtendrá 1 punto como recompensa.
-        <br><br>
-        Sin embargo, si más de <span id="umbral2"></span> jugadores deciden ir al bar, este estará muy lleno y la experiencia no será agradable. Aquí cada jugador que haya asistido perderá 1 punto.
-        <br><br>
-        Los jugadores que decidan <span style="font-style: italic">no ir al bar</span> no perderán ni ganarán ningún punto.
-        <br><br>
-        Cuando todos los participantes hayan tomado la decisión, el computador calculará la asistencia al bar de manera automática.
-        <br><br>
-        <span style="font-style: italic">Importante:</span> Si usted no toma ninguna decisión antes de <span id='segundos2'></span>, el computador tomará una decisión aleatoria por usted.
+      <div align="center">
+          <div style="float: left">
+              <img src="./imagenes/ElFarol.jpeg" alt="Bar El Farol" width="auto" height="200">
+              <p>Ir al bar</p>
+          </div>
+          <div style="float: right; margin-right: 100ptx">
+              <img src="./imagenes/stay_home.jpeg" alt="Bar El Farol" width="auto"   height="200">
+              <p>Quedarse en casa</p>
+          </div>
+          <div style="clear: both"></div>
+      </div>
+      <br>
+      Si <span id="umbral1"></span> o menos jugadores deciden ir al bar, la experiencia será agradable para ellos. Aquí cada jugador que haya asistido obtendrá 1 punto como recompensa.
+      <br><br>
+      Sin embargo, si más de <span id="umbral2"></span> jugadores deciden ir al bar, este estará muy lleno y la experiencia no será agradable. Aquí cada jugador que haya asistido perderá 1 punto.
+      <br><br>
+      Los jugadores que decidan <span style="font-style: italic">no ir al bar</span> no perderán ni ganarán ningún punto.
+      <br><br>
+      Cuando todos los participantes hayan tomado la decisión, el computador calculará la asistencia al bar de manera automática.
+      <br><br>
+      <span style="font-style: italic">Importante: Si usted no toma ninguna decisión antes de <span id='segundos2'></span> segundos, el computador tomará una decisión aleatoria por usted</span>.
       <br><br>
       El juego se repetirá por <span id="rondas"></span> rondas. Al final de cada una de ellas usted podrá ver <span id="informacion"></span>el puntaje que usted obtuvo durante las últimas 15 rondas.
       <br><br>
     </div>
     Si ha entendido las instrucciones, presione el botón "Continuar" para proceder a la información sobre los pagos.
-  </div>
-
     <div id = "confirmar" align="right" style="padding-top: 0px;">
         <button class="button1" id='continuar'>Continuar</button>
     </div>
+	</div>
 </body>

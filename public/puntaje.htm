@@ -33,6 +33,7 @@ h3 {
       margin: 0 auto;
       padding-top: 20px;
       padding-bottom: 50px;
+			overflow-y: scroll;
 }
 
 
@@ -78,32 +79,22 @@ div.checks img{
 
 </style>
 
-    <h1>Puntaje total en las rondas</h1>
-    <div class="column left" style="padding-top: 0px">
+  <h1>Puntaje acumulado en todas las rondas: <span id="acumulado"></span></h1>
+  <div class="container">
+    <div id="puntAcum1">
+      <h3> Su desempeño en las últimas 15 rondas ha sido así:</h3>
+      <span id="canvas_container1" style="width: auto;height: 250px;"></span>
     </div>
-
-    <div class="column middle" style="padding-left: 0px; padding-top: 0px;">
-        <div id="puntAcum1">
-            <h3> Su desempeño en las últimas 15 rondas ha sido así:</h3>
-            <!-- Su desempeño total ha sido así: -->
-            <span id="canvas_container1" style="width: auto;height: 250px;"></span>
-        </div>
-        <div id="puntAcum2">
-          <h3> La asistencia al bar en las últimas 15 rondas ha sido así:</h3>
-          <!-- La asistencia al ha sido así:  -->
-          <span id="canvas_container2"></span>
-        </div>
+    <div id="puntAcum2">
+      <h3> La asistencia al bar en las últimas 15 rondas ha sido así:</h3>
+      <!-- La asistencia al ha sido así:  -->
+      <span id="canvas_container2"></span>
     </div>
-
-
-    <div class="column right" style="padding-top: 0px">
-        <div id = "confirmar" align="right" style="padding-top: 0px;">
-            <button class="button1" id='continuar'>Continuar</button>
-        </div>
+		<p>Presione el botón "Continuar" (o el botón "Done" arriba) si desea finalizar la presentación del puntaje. Cuando todos los jugadores hayan finalizado o se haya terminado el tiempo de espera, se comenzará una nueva ronda.</p>
+    <div id = "confirmar" align="right" style="padding-top: 0px;">
+        <button class="button1" id='continuar'>Continuar</button>
     </div>
   </div>
-
-
 </body>
 
   <script type="text/javascript" language="javascript">
@@ -237,6 +228,9 @@ div.checks img{
             // console.log("rondas",rondas);
             // console.log("puntajes",puntajes);
 
+						var puntaje_acumulado = puntajes.reduce((a, b) => a + b, 0);
+						// console.log('Puntaje acumulado', puntaje_acumulado);
+						document.getElementById('acumulado').innerHTML = puntaje_acumulado;
 						// Uses only the last 15 rounds to draw the score
 						if (rondas.length > 15) {
                 rondas = rondas.slice(rondas.length - 15, rondas.length);

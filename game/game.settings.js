@@ -31,6 +31,7 @@ module.exports = {
     TIMER: {
 			instructions: 180000,
 			pagos: 60000,
+			pantalla: 45000,
 			eleccion: 30000,
 			puntaje: 30000
 			// eleccion: 1000,
@@ -59,5 +60,7 @@ module.exports = {
 		// Whether to show attendance information to players or not
 		REJILLA: true,
 		// How much is each earned point worth
-		PAGO: 1500
+		PAGO: 1500,
+		// Showup fee
+		SHOWUP: 15000
 };

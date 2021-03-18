@@ -12,24 +12,27 @@
 module.exports = function(stager, settings) {
 
      stager // Stager define a sequence of steps on that particular stage
-			 .next('consentimiento')
-			 .next('instructions')
-			 .next('pagos')
-        .repeat('game', settings.REPEAT) // Repeat as the settings was passed on the function
-        .next('end')
-        .gameover();
+			.next('consentimiento')
+			.next('instructions')
+			.next('pagos')
+			.next('pantalla')
+      .repeat('game', settings.REPEAT) // Repeat as the settings was passed on the function
+      .next('end')
+      .gameover();
 
-        stager.extendStage('game', {
-          steps: [
-                  'eleccion',
-                  'puntaje'
-                  ]
-          });
+      stager.extendStage('game', {
+        steps: [
+                'eleccion',
+                'puntaje'
+                ]
+        });
 
     // Modify the stager to skip one stage.
-		// stager.skip('consentimiento');
-		// stager.skip('instructions');
-		// stager.skip('pagos');
+		stager.skip('consentimiento');
+		stager.skip('instructions');
+		stager.skip('pagos');
+		stager.skip('pantalla');
+		// stager.skip('game');
 
     // To skip a step within a stage use:
     // stager.skip('stageName', 'stepName');
