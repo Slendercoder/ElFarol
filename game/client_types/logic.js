@@ -181,8 +181,8 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
           //Sum puntaje
           var sumpuntaje = puntaje.reduce((a, b) => a + b, 0); // summing all the list values of puntajes
           // console.log("sumpuntaje",sumpuntaje);
-          var dineropuntaje = Math.max(0,sumpuntaje*settings.PAGO); // Payment formula
-          var dinerototal = dineropuntaje + 10000;
+          var dineropuntaje = Math.max(sumpuntaje*settings.PAGO,-10000); // Payment formula
+          var dinerototal = Math.max(5000,dineropuntaje+15000);
           dinerototal = dinerototal.toString();
           dinerototal.concat(" $");
           // console.log("Dinero Total",dinerototal);
