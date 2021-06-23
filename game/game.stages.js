@@ -28,10 +28,10 @@ module.exports = function(stager, settings) {
         });
 
     // Modify the stager to skip one stage.
-		// stager.skip('consentimiento');
-		// stager.skip('instructions');
-		// stager.skip('pagos');
-		// stager.skip('pantalla');
+		stager.skip('consentimiento');
+		stager.skip('instructions');
+		stager.skip('pagos');
+		stager.skip('pantalla');
 		// stager.skip('game');
 
     // To skip a step within a stage use:

@@ -132,7 +132,7 @@ module.exports = {
      *
      * Default: FALSE
      */
-    enableReconnections: true,
+    enableReconnections: false,
 
     /**
      * ### sameStepReconnectionOnly (boolean) Optional
@@ -141,7 +141,7 @@ module.exports = {
      *
      * Default: FALSE
      */
-    // sameStepReconnectionOnly: false,
+    // sameStepReconnectionOnly: true,
 
     /**
      * ### disposeFailedReconnections (boolean) Optional

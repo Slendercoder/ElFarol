@@ -166,11 +166,13 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         cb: function() {
             node.on.data('PUNTAJE', function(msg){
               //W.setInnerHTML('canvas_container1', msg.data);
+							console.log('PUNTAJE msg', msg);
               node.emit('drawScore', msg.data);
             });
 
             node.on.data('ASISTENCIAS', function(msg){
               //W.setInnerHTML('canvas_container2', msg.data);
+							console.log('ASISTENCIAS msg', msg);
               node.emit('drawAsistencia', msg.data);
             });
             // Continue Boton
@@ -192,7 +194,10 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 							W.setInnerHTML('canvas_container_dinero_total', msg.data[2]);
 							W.setInnerHTML('showup', msg.data[3]);
 							W.setInnerHTML('codigo', msg.data[4]);
-              });
+							if (msg.data[5] == true) {
+								W.setInnerHTML('desconectados', 'El juego ha sido terminado porque algún jugador se desconectó.');
+							}
+            });
 
             node.game.visualTimer.setToZero();
         }

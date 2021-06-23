@@ -122,10 +122,11 @@ div.checks img{
 
 					if(treat==true){
 						// plot2.style.visibility='visible';
-	          // console.log("Entro Asistencia");
+	          console.log("Entro Asistencia");
 	          p.clear();
 	          // Converting message to JSON in order to be able to use it as dictionary
 	          var asistencias = asistencias_json[0];
+						console.log('ASISTENCIAS asistencias', asistencias);
 	          var overcrowded = asistencias_json[1];
 	          var player_id = asistencias_json[2];
 
@@ -153,7 +154,7 @@ div.checks img{
 	          // Cuadricula Jugadores
 	          n_player = 0;
 	          for(var player in asistencias){
-
+								console.log('Considering player', player);
 	              if (player == player_id){
 	                var usted = '';
 	                usted = n_player+1+' (usted)';
@@ -219,17 +220,17 @@ div.checks img{
         };
         // ---------------------------------- GRAFICA DE PUNTAJE -------------------------------------------- //
         window.drawScore = function(msg) {
-          console.log("Draw Score Fucntion")
+          console.log("Draw Score Function");
 
             var puntajes_json = JSON.parse(msg);
-            // console.log("JSON Puntajes",puntajes_json);
+            console.log("JSON Puntajes",puntajes_json);
             var rondas = puntajes_json[0];
             var puntajes = puntajes_json[1];
-            // console.log("rondas",rondas);
-            // console.log("puntajes",puntajes);
+            console.log("rondas",rondas);
+            console.log("puntajes",puntajes);
 
 						var puntaje_acumulado = puntajes.reduce((a, b) => a + b, 0);
-						// console.log('Puntaje acumulado', puntaje_acumulado);
+						console.log('Puntaje acumulado', puntaje_acumulado);
 						document.getElementById('acumulado').innerHTML = puntaje_acumulado;
 						// Uses only the last 15 rounds to draw the score
 						if (rondas.length > 15) {
@@ -264,7 +265,8 @@ div.checks img{
             },
         };
 
-        Plotly.newPlot(plot, data,layout);
+				console.log('Sending to plotly...');
+        Plotly.newPlot(plot,data,layout);
 
         return
         };

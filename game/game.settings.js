@@ -53,10 +53,13 @@ module.exports = {
 
     // # Game specific properties
 
+		// Determines the number of players
+		// Must coincide with GROUP_SIZE in waitroom.settings.js
+		N_PLAYERS: 5,
 		// Determines the threshold for overcrowed bar
 		THRESHOLD: .6,
     // Number of game rounds repetitions.
-    REPEAT: 50,
+    REPEAT: 10,
 		// Whether to show attendance information to players or not
 		REJILLA: true,
 		// How much is each earned point worth
