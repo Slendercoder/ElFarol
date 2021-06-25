@@ -225,16 +225,16 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 						    stage: { stage: 5},
 						    recompensa: dinerototal,
 						});
-					} 
+					}
 				});
-					// Save data in the data/ directory.
-          var numero = node.nodename.slice(node.nodename.length - 4, node.nodename.length);
-          var archivo = channel.getGameDir();
-					// archivo += '/data/' + node.nodename;
-					archivo += '/data';
-          archivo += '/data_' + numero + '.json';
-          node.game.memory.save(archivo);
-          console.log('Data saved to ' + archivo);
+				// Save data in the data/ directory.
+        var numero = node.nodename.slice(node.nodename.length - 4, node.nodename.length);
+        var archivo = channel.getGameDir();
+				// archivo += '/data/' + node.nodename;
+				archivo += '/data';
+        archivo += '/data_' + numero + '.json';
+        node.game.memory.save(archivo);
+        console.log('Data saved to ' + archivo);
       }
   });
 
