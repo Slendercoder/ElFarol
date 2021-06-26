@@ -59,7 +59,7 @@ module.exports = {
 		// Determines the threshold for overcrowed bar
 		THRESHOLD: .6,
     // Number of game rounds repetitions.
-    REPEAT: 10,
+    REPEAT: 50,
 		// Whether to show attendance information to players or not
 		REJILLA: true,
 		// How much is each earned point worth
