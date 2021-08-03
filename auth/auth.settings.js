@@ -86,7 +86,7 @@ module.exports = {
      * Default: 'codes.json', 'codes.js', 'code.csv' (tried in sequence)
      */
     // inFile: 'codes.imported.csv',
-		inFile: 'codigos.csv'
+		inFile: 'codigos-2p.csv'
 
     /**
      * ## dumpCodes
