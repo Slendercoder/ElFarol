@@ -113,12 +113,9 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         }
     });
 
-		stager.extendStep('pagos', {
+		stager.extendStep('retroalimentacion', {
         cb: function() {
-            console.log('Pagos...');
-						node.game.pl.each(function(player) {
-							node.say('pagos', player.id, [settings.SHOWUP, settings.PAGO]);
-						});
+            console.log('Retroalimentacion...');
         }
     });
 
@@ -128,19 +125,19 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         }
     });
 
+		stager.extendStep('pagos', {
+        cb: function() {
+            console.log('Pagos...');
+						node.game.pl.each(function(player) {
+							node.say('pagos', player.id, [settings.SHOWUP, settings.PAGO]);
+						});
+        }
+    });
+
     stager.extendStep('eleccion', {
         cb: function() {
             console.log('\n%%%%%%%%%%%%%%%');
             console.log('Game round: ' + node.player.stage.round);
-            // node.on.data('done', function(msg) {
-            //     var estado;
-            //     estado = msg.data.estado;
-            //     if (estado == 1) {
-            //       console.log('Jugador ' + msg.from + ' va al bar.');
-            //     } else {
-            //       console.log('Jugador ' + msg.from + ' NO va al bar.');
-            //     }
-            // }); // End on.data 'done'
         }
     });
 

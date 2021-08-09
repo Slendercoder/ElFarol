@@ -91,13 +91,37 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 					// Continue Boton
 					var boton_done = W.gid('continuar');
 					boton_done.onclick = function() {
+						if (node.game.settings.REJILLA == false) {
+							node.game.gotoStep('pagos');
+						} else {
+							node.done();
+						}
+					};
+				}
+    });
+
+		stager.extendStep('retroalimentacion', {
+        frame: 'retro.htm',
+				donebutton: false,
+				cb: function() {
+					// Continue Boton
+					window.scrollTo(0,0);
+					var boton_done = W.gid('continuar');
+					boton_done.onclick = function() {
 						node.done();
 					};
 				}
     });
 
+		stager.extendStep('pantalla', {
+        frame: 'pantalla.htm',
+				cb: function() {
+				}
+    });
+
 		stager.extendStep('pagos', {
         frame: 'pagos.htm',
+				donebutton: false,
 				cb: function() {
 					node.on.data('pagos', function(msg){
 						// Showup fee
@@ -107,13 +131,11 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 						var pago = Number(msg.data[1])/1000;
 						W.setInnerHTML('pago1', pago);
 						W.setInnerHTML('pago2', pago);
+						var boton_done = W.gid('continuar');
+						boton_done.onclick = function() {
+							node.done();
+						};
 					});
-				}
-    });
-
-		stager.extendStep('pantalla', {
-        frame: 'pantalla.htm',
-				cb: function() {
 				}
     });
 
