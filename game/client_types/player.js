@@ -91,11 +91,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 					// Continue Boton
 					var boton_done = W.gid('continuar');
 					boton_done.onclick = function() {
-						if (node.game.settings.REJILLA == false) {
-							node.game.gotoStep('pagos');
-						} else {
 							node.done();
-						}
 					};
 				}
     });
@@ -121,7 +117,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 
 		stager.extendStep('pagos', {
         frame: 'pagos.htm',
-				donebutton: false,
+				donebutton: true,
 				cb: function() {
 					node.on.data('pagos', function(msg){
 						// Showup fee
@@ -210,6 +206,7 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
         donebutton: false,
         frame: 'end.htm',
         cb: function() {
+            node.game.visualTimer.setToZero();
             node.on.data('SUMPUNTAJE', function(msg){
 							W.setInnerHTML('canvas_container_puntaje', msg.data[0]);
 							W.setInnerHTML('canvas_container_dinero_puntaje', msg.data[1]);
@@ -220,8 +217,6 @@ module.exports = function(treatmentName, settings, stager, setup, gameRoom) {
 								W.setInnerHTML('desconectados', 'El juego ha sido terminado porque algún jugador se desconectó.');
 							}
             });
-
-            node.game.visualTimer.setToZero();
         }
     });
 };

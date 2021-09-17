@@ -59,9 +59,9 @@ module.exports = {
 		// Determines the threshold for overcrowed bar
 		THRESHOLD: .6,
     // Number of game rounds repetitions.
-    REPEAT: 50,
+    REPEAT: 1,
 		// Whether to show attendance information to players or not
-		REJILLA: true,
+		REJILLA: false,
 		// How much is each earned point worth
 		PAGO: 1500,
 		// Showup fee
