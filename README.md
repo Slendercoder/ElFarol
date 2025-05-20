@@ -10,6 +10,17 @@ The El Farol Bar Problem is a classic game-theoretic scenario where individuals 
 
 ---
 
+## Papers citing this data
+
+```
+@incollection{CollInt:24,
+    author = {Edgar J. Andrade-Lotero and Robert L. Goldstone},
+	title = {An empirical study of the El Farol bar problem},
+    publisher = {Collective Intelligence},
+	year = {2024}
+}
+```
+
 ## 🚀 Features
 
 - **Modular Game Design**: Built using nodeGame's modular architecture, facilitating easy customization and extension.
